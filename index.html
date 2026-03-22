@@ -1,216 +1,1450 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>🎉 سنة كاملة.. وأنتِ أجمل صديقة 🎉</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎁 هدية خاصة | سنة كاملة من الصداقة الجميلة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* ===== الأساسيات ===== */
+        :root {
+            --pink: #ff6b8b;
+            --purple: #9c27b0;
+            --blue: #2196f3;
+            --teal: #00bcd4;
+            --gold: #ffd700;
+            --light: #fff9f9;
+            --dark: #1a1a2e;
+            --gradient-love: linear-gradient(135deg, #ff6b8b 0%, #9c27b0 50%, #2196f3 100%);
+            --shadow-soft: 0 8px 25px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 15px 35px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', 'El Messiri', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+            direction: rtl;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ===== شاشة التحميل ===== */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-love);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            text-align: center;
+        }
+
+        .portal-loader {
+            width: 120px;
+            height: 120px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--gold);
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+            margin-bottom: 2rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-screen p {
+            font-size: 1.3rem;
+            color: white;
+            font-weight: 500;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* ===== الشاشات العامة ===== */
+        .screen {
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            position: relative;
+        }
+
+        .screen.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* ===== الشاشة 1 ===== */
+        .screen-1 {
+            flex-direction: column;
+            text-align: center;
+            background: linear-gradient(135deg, #ff6b8b 0%, #9c27b0 100%);
+            overflow: hidden;
+        }
+
+        .stars-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .welcome-message {
+            margin-bottom: 3rem;
+            animation: slideInDown 1s ease;
+        }
+
+        .welcome-message h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #ffd700 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .magic-portal-container {
+            margin: 3rem 0;
+        }
+
+        .portal-guide {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .portal-guide i {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .portal-guide p {
+            font-size: 1.2rem;
+            color: white;
+            margin: 0.5rem 0;
+        }
+
+        .magic-portal {
+            width: 280px;
+            height: 280px;
+            margin: 0 auto;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .magic-portal:hover {
+            transform: scale(1.05);
+        }
+
+        .portal-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 3px solid;
+            animation: rotate 20s linear infinite;
+        }
+
+        .outer-ring {
+            width: 100%;
+            height: 100%;
+            border-color: rgba(255, 215, 0, 0.4);
+            animation-duration: 25s;
+        }
+
+        .middle-ring {
+            width: 80%;
+            height: 80%;
+            border-color: rgba(156, 39, 176, 0.6);
+            animation-direction: reverse;
+        }
+
+        .portal-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(135deg, #ff6b8b, #9c27b0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 60px rgba(255, 107, 139, 0.6);
+        }
+
+        @keyframes rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .portal-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .welcome-note {
+            margin-top: 3rem;
+        }
+
+        .note-bubble {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 1.5rem;
+            display: inline-block;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            max-width: 500px;
+        }
+
+        .note-bubble p {
+            color: white;
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+        }
+
+        /* ===== الشاشة 2 ===== */
+        .screen-2 {
+            background: linear-gradient(135deg, #2196f3 0%, #00bcd4 100%);
+            flex-direction: column;
+            padding-top: 5rem;
+        }
+
+        .challenge-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        .challenge-header h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .fun-instructions {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 1rem auto 2rem;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .instruction-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .game-zone {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 25px;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .game-card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .game-card::before {
+            content: '?';
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .game-card.revealed::before {
+            display: none;
+        }
+
+        .game-card.matched {
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            cursor: default;
+        }
+
+        .stats-display {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 150px;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .start-game-btn {
+            background: linear-gradient(135deg, #ff4081, #e91e63);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* ===== الشاشة 3 ===== */
+        .screen-3 {
+            background: linear-gradient(135deg, #9c27b0 0%, #673ab7 100%);
+        }
+
+        .celebration-container {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .love-btn {
+            background: linear-gradient(135deg, #ff4081, #ff5722);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 35px;
+            cursor: pointer;
+            margin-top: 2rem;
+        }
+
+        /* ===== الشاشة 4 ===== */
+        .screen-4 {
+            background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+        }
+
+        .real-gift {
+            width: 250px;
+            height: 250px;
+            margin: 2rem auto;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .real-gift:hover {
+            transform: scale(1.05);
+        }
+
+        .real-gift .initial {
+            font-size: 5rem;
+            color: white;
+        }
+
+        .letter-reveal {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .handwritten-letter {
+            background: white;
+            border-radius: 25px;
+            padding: 2rem;
+            color: #333;
+        }
+
+        .continue-btn {
+            background: transparent;
+            color: white;
+            border: 3px solid #ffd700;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        /* ===== الشاشة 5 ===== */
+        .screen-5 {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .final-celebration {
+            width: 100%;
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        .wisdom-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .wisdom-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+        }
+
+        .interactive-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .fun-btn {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 25px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        /* ===== لوحة التحكم ===== */
+        .control-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .control-panel.collapsed .panel-content {
+            display: none;
+        }
+
+        .panel-toggle {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--gradient-love);
+            border: 2px solid white;
+            color: white;
+            font-size: 1.6rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .panel-toggle.press-hold {
+            animation: pulse-gold 0.5s ease;
+        }
+
+        @keyframes pulse-gold {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 215, 0, 0.3); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        }
+
+        .panel-content {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 15px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .progress-tracker {
+            text-align: center;
+        }
+
+        .tracker-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .tracker-dot {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tracker-dot.active {
+            background: var(--pink);
+        }
+
+        /* ===== نافذة التعديل ===== */
+        .edit-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .edit-modal-content {
+            background: linear-gradient(135deg, #ff6b8b, #9c27b0);
+            border-radius: 30px;
+            padding: 2rem;
+            max-width: 550px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 3px solid var(--gold);
+        }
+
+        .edit-modal-content h3 {
+            color: white;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .edit-item {
+            margin-bottom: 1.2rem;
+        }
+
+        .edit-item label {
+            display: block;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .edit-item input, .edit-item textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 12px;
+            border: none;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .edit-item textarea {
+            min-height: 70px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 10px;
+            border-radius: 25px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .save-btn {
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            color: white;
+        }
+
+        .cancel-btn {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .notification {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ff6b8b, #ff4081);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            z-index: 10001;
+            text-align: center;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .welcome-message h1 { font-size: 1.8rem; }
+            .magic-portal { width: 200px; height: 200px; }
+            .portal-core { width: 120px; height: 120px; }
+            .portal-text { font-size: 1.8rem; }
+            .game-board { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+            .edit-modal-content { padding: 1.5rem; }
+        }
+    </style>
 </head>
+
 <body>
-
-<!-- شاشة التحميل -->
-<div class="loading-screen" id="loadingScreen">
-    <div class="loader">
-        <div class="loader-spinner"></div>
-        <p id="loadingText">✨ جاهزة لمفاجأة السنة؟ ✨</p>
-    </div>
-</div>
-
-<!-- الشاشة 1: البداية -->
-<section class="screen screen-1 active" id="screen1">
-    <div class="stars-bg" id="starsBg"></div>
-    <div class="screen-content">
-        <div class="welcome-message">
-            <h1 id="welcomeTitle">🎉 ياهلااااااااا فيكِ يا صديقتي الغالية 🎉</h1>
-            <p id="welcomeSubtitle" class="welcome-subtitle">مرت سنة كاملة... وأنتِ جنبي 🤍</p>
+    <!-- شاشة التحميل -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loader">
+            <div class="portal-loader"></div>
+            <p>✨ جاهزين لرحلة الذكريات الجميلة...</p>
         </div>
+    </div>
 
+    <!-- الشاشة 1: بداية الرحلة -->
+    <section class="screen screen-1 active" id="screen1">
+        <div class="stars-container"></div>
+        <div class="welcome-message">
+            <h1 id="welcomeTitle">🎉 سنة كاملة من الصداقة الجميلة! 💖</h1>
+            <p class="welcome-subtitle" id="welcomeText">رحلة خاصة مليئة بالذكريات واللحظات الحلوة.. استمتعي بكل تفاصيلها</p>
+        </div>
         <div class="magic-portal-container">
             <div class="portal-guide">
-                <p id="portalGuide1">يلا يا عمري</p>
-                <p id="portalGuide2">اضغطي على البوابة عشان تشوفي المفاجأة 🚀</p>
-                <i class="fas fa-hand-point-down"></i>
+                <p id="portalGuideText1">أهلاً بك في رحلة الذكريات</p>
+                <p id="portalGuideText2">اضغطي على ابدأ لتبدأ المغامرة 🚀</p>
+                <i class="fas fa-hand-point-down heartbeat"></i>
             </div>
-
-            <div class="magic-portal" id="magicPortal">
+            <div class="magic-portal" onclick="activatePortal()">
                 <div class="portal-ring outer-ring"></div>
                 <div class="portal-ring middle-ring"></div>
                 <div class="portal-core">
-                    <div class="sparkle">✨</div>
-                    <div class="sparkle">🌟</div>
-                    <div class="sparkle">💫</div>
-                    <div class="portal-text" id="portalText">إبدأي</div>
+                    <div class="portal-text">ابدأ</div>
                 </div>
             </div>
         </div>
-
-        <div class="note-bubble">
-            <p id="noteText1">💖 <strong>تذكير:</strong> كل مرحلة فيها مفاجأة أحلى من اللي قبلها</p>
-            <p id="noteText2" class="small-note">(والمتعة لسى ما بدأت 😉)</p>
+        <div class="welcome-note">
+            <div class="note-bubble">
+                <p id="noteText1">💝 كل لحظة معك تستحق الاحتفال</p>
+                <p class="small-note" id="noteText2">(رحلة مليئة بالمفاجآت الجميلة 😊)</p>
+            </div>
         </div>
-    </div>
-</section>
+        <audio id="portalSound" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-sound-3090.mp3"></audio>
+    </section>
 
-<!-- الشاشة 2: اللعبة -->
-<section class="screen screen-2" id="screen2">
-    <div class="screen-content">
+    <!-- الشاشة 2: لعبة الذاكرة -->
+    <section class="screen screen-2" id="screen2">
         <div class="challenge-header">
-            <h2 id="gameTitle"><i class="fas fa-brain"></i> لعبة الذكريات 🧩</h2>
-            <p id="gameSubtitle" class="challenge-tagline">جربي تشغلي مخك شوية.. أكيد ذكية كفاية! 😎</p>
+            <h2 id="challengeTitle"><i class="fas fa-brain"></i> لعبة الذاكرة 🧩</h2>
+            <p id="challengeTagline">جربي تشغلي مخك شوية مع اللعبة المسلية</p>
         </div>
-
         <div class="fun-instructions">
-            <div class="emoji-icon">🎮</div>
-            <h3 id="gameInstTitle">لعبة الذاكرة الممتعة</h3>
-            <p id="gameInstText">كل 10 ثواني، الكروت بتغير أماكنها! 🤹‍♀️</p>
-            <p id="gameHint" class="hint">(متفكريش كتير.. عقلك سريع أصلاً 💨)</p>
-        </div>
-
-        <div class="game-board" id="gameBoard"></div>
-
-        <div class="stats-display">
-            <div class="stat-box">
-                <div class="stat-icon">🎯</div>
-                <div class="stat-label" id="matchLabel">المطابقة</div>
-                <div class="stat-value" id="matches">0/8</div>
+            <div class="instruction-card">
+                <div class="emoji-icon">🎮</div>
+                <h3 id="gameTitle1">لعبة الذاكرة</h3>
+                <p id="gameDesc1">كل 10 ثواني، الكروت بتغير أماكنها</p>
             </div>
-            <div class="stat-box">
-                <div class="stat-icon">🔄</div>
-                <div class="stat-label" id="shuffleLabel">التحريك بعد</div>
-                <div class="stat-value" id="shuffleTime">10</div>
+            <div class="instruction-card">
+                <div class="emoji-icon">🏆</div>
+                <h3 id="gameTitle2">القاعدة بسيطة</h3>
+                <p id="gameDesc2">دوري على الكروت المتشابهة واربطيها مع بعض</p>
             </div>
         </div>
-
-        <button class="start-game-btn" id="startGameBtn">
-            <span class="btn-emoji">🎲</span>
-            <span class="btn-text" id="startBtnText">يلا بينا.. خلينا نشغل المخ!</span>
-        </button>
-    </div>
-</section>
-
-<!-- الشاشة 3: الاحتفال -->
-<section class="screen screen-3" id="screen3">
-    <div class="screen-content">
-        <div class="message-header">
-            <div class="trophy">🏆</div>
-            <h2 id="celebTitle">أبدعتييييييي يا حلوة 🎉</h2>
-            <div class="trophy">🏆</div>
-        </div>
-
-        <div class="celebration-text">
-            <p id="celebLine1" class="celeb-line">😎 شطورررررررررة!</p>
-            <p id="celebLine2" class="celeb-line">أثبتي إن مخك سريع وذكي زيك 😘</p>
-            <p id="celebLine3" class="celeb-line">بس الرحلة لسى ما خلصت.. في مفاجأة تستناكِ 🤫</p>
-        </div>
-
-        <div class="proud-moment">
-            <p id="proudText">"أهم شيء تكوني مبسوطة وتضحكي..<br>لأن ضحكتك هي أجمل شيء في الدنيا 🤗"</p>
-        </div>
-
-        <button class="love-btn" id="giftBtn">
-            <span class="heart-pulse">💓</span>
-            <span class="btn-words" id="giftBtnText">يلا نشوف الهدية!</span>
-            <span class="sparkle-effect">✨</span>
-        </button>
-    </div>
-</section>
-
-<!-- الشاشة 4: الهدية -->
-<section class="screen screen-4" id="screen4">
-    <div class="screen-content">
-        <div class="gift-stage">
-            <h3 id="giftTitle">🎁 واااااو وصلنا للجزء الحلو!</h3>
-            <p id="giftSubtitle">هنا أحلى جزء في الرحلة.. لأن هنا خرجت كل كلمة في قلبي 💝</p>
-
-            <div class="real-gift" id="realGift">
-                <div class="gift-bow">
-                    <div class="bow-center"></div>
-                    <div class="bow-loop left-loop"></div>
-                    <div class="bow-loop right-loop"></div>
-                </div>
-                <div class="gift-box">
-                    <i class="fas fa-gift"></i>
-                </div>
-            </div>
-
-            <div class="letter-reveal" id="letterReveal">
-                <div class="handwritten-letter">
-                    <h3 id="letterTitle">💌 لأجمل صديقة في الدنيا 💌</h3>
-                    <div id="letterContent"></div>
-                    <div class="signature" id="signature">
-                        <p>بكل الحب والاحترام</p>
-                        <p>صديقتك اللي عمرها ما تقدر تنساكِ</p>
-                        <p style="font-size: 1rem;">🤗✨</p>
+        <div class="game-zone">
+            <div class="game-board" id="gameBoard"></div>
+            <div class="stats-display">
+                <div class="stat-box">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-info">
+                        <div class="stat-label">المطابقة</div>
+                        <div class="stat-value" id="matches">0/6</div>
                     </div>
                 </div>
-                <button class="continue-btn" id="continueToFinal">
-                    <i class="fas fa-arrow-down"></i>
-                    <span id="continueText">يلا بينا للنهاية الحلوة!</span>
-                    <i class="fas fa-arrow-down"></i>
+                <div class="stat-box">
+                    <div class="stat-icon">🔄</div>
+                    <div class="stat-info">
+                        <div class="stat-label">التحريك بعد</div>
+                        <div class="stat-value" id="shuffleTime">10</div>
+                    </div>
+                </div>
+            </div>
+            <button class="start-game-btn" id="startBtnText" onclick="startChallenge()">
+                🎲 ابدأي اللعبة
+            </button>
+        </div>
+        <div class="fun-message">
+            <p id="funMessage">💭 لعبة بسيطة بس ممتعة، استمتعي بالوقت!</p>
+        </div>
+    </section>
+
+    <!-- الشاشة 3: لحظة النجاح -->
+    <section class="screen screen-3" id="screen3">
+        <div class="celebration-container">
+            <div class="confetti-container"></div>
+            <div class="achievement-message">
+                <div class="message-header">
+                    <div class="trophy">🏆</div>
+                    <h2 id="celebrationTitle">🎉 أحسنتِ! 🎉</h2>
+                    <div class="trophy">🏆</div>
+                </div>
+                <div class="celebration-text">
+                    <p class="celeb-line" id="celebLine1">😊 ممتاز!</p>
+                    <p class="celeb-line" id="celebLine2">أذهلتِ الجميع بذكائك</p>
+                    <p class="celeb-line" id="celebLine3">الرحلة لا تزال مستمرة</p>
+                </div>
+            </div>
+            <div class="action-step">
+                <p class="action-note" id="actionNote">✨ استعدي للمفاجأة القادمة</p>
+                <button class="love-btn" onclick="revealGift()">
+                    <span class="heart-pulse">💝</span>
+                    <span class="btn-words" id="loveBtnText">تابعي الرحلة</span>
                 </button>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- الشاشة 5: الختام -->
-<section class="screen screen-5" id="screen5">
-    <div class="screen-content">
-        <div class="top-decoration">
-            <div class="star">⭐</div>
-            <div class="star">🌟</div>
-            <div class="star">✨</div>
+    <!-- الشاشة 4: الهدية -->
+    <section class="screen screen-4" id="screen4">
+        <div class="gift-stage">
+            <div class="stage-intro">
+                <h3 id="giftTitle">🎁 هدية خاصة 🎁</h3>
+                <p id="giftDesc">هنا أجمل جزء في الرحلة.. كلمات من القلب</p>
+                <p class="funny-note" id="giftNote">"كل كلمة كتبتها بحب وأمل إنها تفرحك" 💝</p>
+            </div>
+            <div class="real-gift" onclick="openRealGift()">
+                <div class="initial">🎁</div>
+            </div>
+            <div class="gift-instruction">
+                <div class="instruction-bubble">
+                    <div class="heart-seal">💌</div>
+                    <p id="giftInstruction">اضغطي على الهدية لفتحها</p>
+                </div>
+            </div>
         </div>
-
-        <h2 class="final-title" id="finalTitle">🎉 خلاصة الرحلة الرائعة دي! 🎉</h2>
-
-        <div class="wisdom-cards" id="wisdomCards"></div>
-
-        <div class="final-message">
-            <p class="final-quote" id="finalQuote">"الحمدلله على وجودك في حياتي.. والحمدلله على كل لحظة عشناها سوا 🤍"</p>
-            <p id="finalMessage">سنة كاملة وأنا معاكِ.. ويا رب سنين أطول وأجمل 💖</p>
-            <p id="finalMessage2" style="margin-top: 1rem;">أنتِ الدليل الحي إن <strong>الذكاء والقلب الكبير</strong> ممكن يجتمعوا في بنوتة وحدة!</p>
-        </div>
-
-        <div class="interactive-buttons">
-            <button class="fun-btn share-btn" id="shareBtn">
-                <i class="fas fa-share-alt"></i> <span id="shareText">شاركي الفرحة 🌍</span>
+        <div class="letter-reveal" id="revealedMessage">
+            <div class="handwritten-letter">
+                <div class="letter-header">
+                    <div class="heart-seal">💌</div>
+                    <div class="address">
+                        <h4>إلى: <span class="name" id="letterTo">أغلى صديقة في الدنيا</span></h4>
+                        <p class="from">من: <span class="sender" id="letterFrom">صديقك/صديقتك</span></p>
+                    </div>
+                </div>
+                <div class="letter-content">
+                    <p class="greeting" id="letterGreeting">أجمل تحية لأجمل إنسانة</p>
+                    <p id="letterPara1">سنة كاملة من الصداقة مرت بسرعة! كل لحظة معك كانت مميزة وحلوة</p>
+                    <p id="letterPara2">أنا سعيدة/سعيد جداً إنك في حياتي، وجودك فرق كبير</p>
+                    <p id="letterPara3">شكراً لكل لحظة حلوة، لكل ضحكة، لكل ذكرى</p>
+                    <p id="letterPara4">أنت إنسانة رائعة بكل معنى الكلمة</p>
+                    <div class="special-note">
+                        <div class="note-icon">💭</div>
+                        <div class="note-text">
+                            <p id="specialNote">"الصداقة الحقيقية كنز نادر.. وشكراً لأنك هذا الكنز" 💎</p>
+                        </div>
+                    </div>
+                    <div class="closing-section">
+                        <p id="closingText">أتمنى لك سنة مليئة بالفرح والنجاح والسعادة 💫</p>
+                    </div>
+                </div>
+                <div class="letter-signature">
+                    <div class="signature-name" id="signature">مع كل الحب والتقدير</div>
+                    <div class="signature-nickname" id="signatureNick">صديقك/صديقتك للأبد 🤗</div>
+                </div>
+            </div>
+            <button class="continue-btn" onclick="proceedToFinal()">
+                <i class="fas fa-arrow-down"></i>
+                <span id="continueText">إلى النهاية</span>
+                <i class="fas fa-arrow-down"></i>
             </button>
-            <button class="fun-btn replay-btn" id="replayBtn">
-                <i class="fas fa-redo"></i> <span id="replayText">أعيدي الرحلة 🔄</span>
+        </div>
+    </section>
+
+    <!-- الشاشة 5: الختام -->
+    <section class="screen screen-5" id="screen5">
+        <div class="final-celebration">
+            <div class="final-content">
+                <h2 class="final-title" id="finalTitle">🎉 ختام الرحلة 🎉</h2>
+                <div class="wisdom-cards">
+                    <div class="wisdom-card">
+                        <div class="card-content">
+                            <h3>حكمة اليوم:</h3>
+                            <p id="wisdom1">"الصداقة الحقيقية لا تُقدر بثمن، هي هدية من الله" ✨</p>
+                        </div>
+                    </div>
+                    <div class="wisdom-card">
+                        <div class="card-content">
+                            <h3>رسالة:</h3>
+                            <p id="wisdom2">"أجمل شيء في الدنيا هو وجود أشخاص يضيئون حياتك" 🌟</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="final-message">
+                    <div class="message-bubble">
+                        <p class="opening-line" id="finalOpening">إلى صديقتي الغالية،</p>
+                        <p id="finalMessage">شكراً لأنك جزء من حياتي، وجودك يجعل كل شيء أجمل</p>
+                        <p class="highlight-quote" id="finalQuote">"الصداقة ليست مجرد علاقة، هي روح تسكن القلب" 💖</p>
+                    </div>
+                </div>
+            </div>
+            <div class="interactive-buttons">
+                <button class="fun-btn share-btn" onclick="shareMoment()">
+                    <i class="fas fa-share-alt"></i>
+                    <span>مشاركة 🌍</span>
+                </button>
+                <button class="fun-btn replay-btn" onclick="experienceAgain()">
+                    <i class="fas fa-redo"></i>
+                    <span>إعادة الرحلة 🔄</span>
+                </button>
+            </div>
+            <div class="final-signature">
+                <div class="signature-container">
+                    <p class="sign-line" id="finalSignLine">مع كل الحب والاحترام،</p>
+                    <h3 class="sign-name" id="finalSignName">صديقك/صديقتك للأبد 🎁</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- لوحة التحكم -->
+    <div class="control-panel collapsed" id="controlPanel">
+        <button class="panel-toggle" id="panelToggleBtn" title="التنقل بين الصفحات">
+            <i class="fas fa-cog"></i>
+        </button>
+        <div class="panel-content">
+            <button class="control-btn music-btn" onclick="toggleMusic()">
+                <i class="fas fa-music" id="musicIcon"></i>
+                <span>الموسيقى 🎵</span>
             </button>
-        </div>
-
-        <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.2);">
-            <p id="footerLine1">مع كل <strong>الحب</strong> والإعجاب اللي في قلبي،</p>
-            <h3 style="color: #ff6b8b; margin: 0.5rem 0;" id="footerName">صديقتك 🎁</h3>
-            <p id="footerDate">📆 سنة كاملة.. وأنتِ جنبي ✨</p>
+            <div class="progress-tracker">
+                <div class="tracker-dots">
+                    <span class="tracker-dot active" data-screen="1">١</span>
+                    <span class="tracker-dot" data-screen="2">٢</span>
+                    <span class="tracker-dot" data-screen="3">٣</span>
+                    <span class="tracker-dot" data-screen="4">٤</span>
+                    <span class="tracker-dot" data-screen="5">٥</span>
+                </div>
+                <div class="tracker-text">التنقل بين الصفحات</div>
+            </div>
         </div>
     </div>
-</section>
 
-<!-- لوحة التحكم -->
-<div class="control-panel" id="controlPanel">
-    <button class="panel-toggle" id="panelToggle">
-        <i class="fas fa-cog"></i>
-    </button>
-    <div class="panel-content" id="panelContent">
-        <div class="tracker-dots">
-            <span class="tracker-dot" data-screen="1">١</span>
-            <span class="tracker-dot" data-screen="2">٢</span>
-            <span class="tracker-dot" data-screen="3">٣</span>
-            <span class="tracker-dot" data-screen="4">٤</span>
-            <span class="tracker-dot" data-screen="5">٥</span>
-        </div>
-        <div class="tracker-text" id="screenIndicator">البداية</div>
-    </div>
-</div>
+    <audio id="backgroundMusic" loop></audio>
 
-<!-- زر الدخول للإدارة (مخفي - اضغط 3 ثواني) -->
-<div id="adminSecret" style="position: fixed; bottom: 10px; right: 10px; width: 50px; height: 50px; cursor: pointer; z-index: 9999; opacity: 0.01;"></div>
+    <script>
+        // ===== المتغيرات العامة =====
+        let currentScreen = 1;
+        let totalScreens = 5;
+        let musicPlaying = false;
+        let musicStarted = false;
+        let challengeActive = false;
+        let cards = [];
+        let flippedCards = [];
+        let matches = 0;
+        let shuffleTimer;
+        let shuffleTimeLeft = 10;
+        let pressTimer = null;
+        
+        const cardSymbols = ['🐵', '✨', '🌟', '💖', '🎯', '🏆', '🎁', '💎', '🐵', '✨', '🌟', '💖', '🎯', '🏆', '🎁', '💎'];
 
-<script src="script.js"></script>
+        // ===== عناصر النصوص القابلة للتعديل =====
+        const editableElements = {
+            welcomeTitle: { element: null, default: "🎉 سنة كاملة من الصداقة الجميلة! 💖" },
+            welcomeText: { element: null, default: "رحلة خاصة مليئة بالذكريات واللحظات الحلوة.. استمتعي بكل تفاصيلها" },
+            portalGuideText1: { element: null, default: "أهلاً بك في رحلة الذكريات" },
+            portalGuideText2: { element: null, default: "اضغطي على ابدأ لتبدأ المغامرة 🚀" },
+            noteText1: { element: null, default: "💝 كل لحظة معك تستحق الاحتفال" },
+            noteText2: { element: null, default: "(رحلة مليئة بالمفاجآت الجميلة 😊)" },
+            challengeTitle: { element: null, default: "لعبة الذاكرة 🧩" },
+            challengeTagline: { element: null, default: "جربي تشغلي مخك شوية مع اللعبة المسلية" },
+            gameTitle1: { element: null, default: "لعبة الذاكرة" },
+            gameDesc1: { element: null, default: "كل 10 ثواني، الكروت بتغير أماكنها" },
+            gameTitle2: { element: null, default: "القاعدة بسيطة" },
+            gameDesc2: { element: null, default: "دوري على الكروت المتشابهة واربطيها مع بعض" },
+            startBtnText: { element: null, default: "🎲 ابدأي اللعبة" },
+            funMessage: { element: null, default: "💭 لعبة بسيطة بس ممتعة، استمتعي بالوقت!" },
+            celebrationTitle: { element: null, default: "🎉 أحسنتِ! 🎉" },
+            celebLine1: { element: null, default: "😊 ممتاز!" },
+            celebLine2: { element: null, default: "أذهلتِ الجميع بذكائك" },
+            celebLine3: { element: null, default: "الرحلة لا تزال مستمرة" },
+            actionNote: { element: null, default: "✨ استعدي للمفاجأة القادمة" },
+            loveBtnText: { element: null, default: "تابعي الرحلة" },
+            giftTitle: { element: null, default: "🎁 هدية خاصة 🎁" },
+            giftDesc: { element: null, default: "هنا أجمل جزء في الرحلة.. كلمات من القلب" },
+            giftNote: { element: null, default: "\"كل كلمة كتبتها بحب وأمل إنها تفرحك\" 💝" },
+            giftInstruction: { element: null, default: "اضغطي على الهدية لفتحها" },
+            letterTo: { element: null, default: "أغلى صديقة في الدنيا" },
+            letterFrom: { element: null, default: "صديقك/صديقتك" },
+            letterGreeting: { element: null, default: "أجمل تحية لأجمل إنسانة" },
+            letterPara1: { element: null, default: "سنة كاملة من الصداقة مرت بسرعة! كل لحظة معك كانت مميزة وحلوة" },
+            letterPara2: { element: null, default: "أنا سعيدة/سعيد جداً إنك في حياتي، وجودك فرق كبير" },
+            letterPara3: { element: null, default: "شكراً لكل لحظة حلوة، لكل ضحكة، لكل ذكرى" },
+            letterPara4: { element: null, default: "أنت إنسانة رائعة بكل معنى الكلمة" },
+            specialNote: { element: null, default: "\"الصداقة الحقيقية كنز نادر.. وشكراً لأنك هذا الكنز\" 💎" },
+            closingText: { element: null, default: "أتمنى لك سنة مليئة بالفرح والنجاح والسعادة 💫" },
+            signature: { element: null, default: "مع كل الحب والتقدير" },
+            signatureNick: { element: null, default: "صديقك/صديقتك للأبد 🤗" },
+            continueText: { element: null, default: "إلى النهاية" },
+            finalTitle: { element: null, default: "🎉 ختام الرحلة 🎉" },
+            wisdom1: { element: null, default: "\"الصداقة الحقيقية لا تُقدر بثمن، هي هدية من الله\" ✨" },
+            wisdom2: { element: null, default: "\"أجمل شيء في الدنيا هو وجود أشخاص يضيئون حياتك\" 🌟" },
+            finalOpening: { element: null, default: "إلى صديقتي الغالية،" },
+            finalMessage: { element: null, default: "شكراً لأنك جزء من حياتي، وجودك يجعل كل شيء أجمل" },
+            finalQuote: { element: null, default: "\"الصداقة ليست مجرد علاقة، هي روح تسكن القلب\" 💖" },
+            finalSignLine: { element: null, default: "مع كل الحب والاحترام،" },
+            finalSignName: { element: null, default: "صديقك/صديقتك للأبد 🎁" }
+        };
+
+        // ===== تحميل النصوص المحفوظة =====
+        function loadSavedTexts() {
+            for (let key in editableElements) {
+                const saved = localStorage.getItem(`editable_${key}`);
+                editableElements[key].element = document.getElementById(key);
+                if (saved && editableElements[key].element) {
+                    editableElements[key].element.innerHTML = saved;
+                }
+            }
+        }
+
+        // ===== حفظ جميع النصوص =====
+        function saveAllTexts() {
+            for (let key in editableElements) {
+                if (editableElements[key].element) {
+                    localStorage.setItem(`editable_${key}`, editableElements[key].element.innerHTML);
+                }
+            }
+        }
+
+        // ===== عرض نافذة التعديل =====
+        function showEditModal() {
+            // جمع القيم الحالية
+            const currentValues = {};
+            for (let key in editableElements) {
+                if (editableElements[key].element) {
+                    currentValues[key] = editableElements[key].element.innerHTML;
+                } else {
+                    currentValues[key] = editableElements[key].default;
+                }
+            }
+            
+            const modal = document.createElement('div');
+            modal.className = 'edit-modal';
+            modal.innerHTML = `
+                <div class="edit-modal-content">
+                    <h3>✏️ تخصيص النصوص ✏️</h3>
+                    <div class="edit-item">
+                        <label>عنوان الترحيب:</label>
+                        <input type="text" id="edit_welcomeTitle" value="${escapeHtml(currentValues.welcomeTitle)}">
+                    </div>
+                    <div class="edit-item">
+                        <label>النص الترحيبي:</label>
+                        <textarea id="edit_welcomeText">${escapeHtml(currentValues.welcomeText)}</textarea>
+                    </div>
+                    <div class="edit-item">
+                        <label>فقرة الرسالة 1:</label>
+                        <textarea id="edit_letterPara1">${escapeHtml(currentValues.letterPara1)}</textarea>
+                    </div>
+                    <div class="edit-item">
+                        <label>فقرة الرسالة 2:</label>
+                        <textarea id="edit_letterPara2">${escapeHtml(currentValues.letterPara2)}</textarea>
+                    </div>
+                    <div class="edit-item">
+                        <label>فقرة الرسالة 3:</label>
+                        <textarea id="edit_letterPara3">${escapeHtml(currentValues.letterPara3)}</textarea>
+                    </div>
+                    <div class="edit-item">
+                        <label>الفقرة الخاصة:</label>
+                        <textarea id="edit_specialNote">${escapeHtml(currentValues.specialNote)}</textarea>
+                    </div>
+                    <div class="edit-item">
+                        <label>نص الختام:</label>
+                        <textarea id="edit_finalQuote">${escapeHtml(currentValues.finalQuote)}</textarea>
+                    </div>
+                    <div class="modal-buttons">
+                        <button class="save-btn" onclick="saveEditsAndClose()">💾 حفظ التعديلات</button>
+                        <button class="cancel-btn" onclick="closeModal()">❌ إلغاء</button>
+                    </div>
+                    <div style="margin-top: 15px; text-align: center;">
+                        <button onclick="resetToDefaultAndClose()" style="background: rgba(255,255,255,0.3); color: white; padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer;">🔄 إعادة للافتراضي</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            window.currentModal = modal;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function saveEditsAndClose() {
+            const edits = {
+                welcomeTitle: document.getElementById('edit_welcomeTitle')?.value,
+                welcomeText: document.getElementById('edit_welcomeText')?.value,
+                letterPara1: document.getElementById('edit_letterPara1')?.value,
+                letterPara2: document.getElementById('edit_letterPara2')?.value,
+                letterPara3: document.getElementById('edit_letterPara3')?.value,
+                specialNote: document.getElementById('edit_specialNote')?.value,
+                finalQuote: document.getElementById('edit_finalQuote')?.value
+            };
+            
+            for (let key in edits) {
+                if (edits[key] !== undefined && editableElements[key]?.element) {
+                    editableElements[key].element.innerHTML = edits[key];
+                    localStorage.setItem(`editable_${key}`, edits[key]);
+                }
+            }
+            
+            closeModal();
+            showNotification("✅ تم حفظ التعديلات! شاركي الرابط ليظهر بنفس الشكل");
+            
+            // نسخ الرابط
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                showNotification("📋 تم نسخ الرابط! شاركيه مع من تحبين");
+            });
+        }
+        
+        function resetToDefaultAndClose() {
+            if (confirm("هل تريدين إعادة جميع النصوص إلى الوضع الافتراضي؟")) {
+                for (let key in editableElements) {
+                    if (editableElements[key].element) {
+                        editableElements[key].element.innerHTML = editableElements[key].default;
+                        localStorage.setItem(`editable_${key}`, editableElements[key].default);
+                    }
+                }
+                closeModal();
+                showNotification("✨ تم إعادة جميع النصوص إلى الوضع الافتراضي!");
+            }
+        }
+        
+        function closeModal() {
+            if (window.currentModal) {
+                window.currentModal.remove();
+                window.currentModal = null;
+            }
+        }
+
+        // ===== الضغط المطول على زر الترس =====
+        function setupLongPress() {
+            const toggleBtn = document.getElementById('panelToggleBtn');
+            if (!toggleBtn) return;
+            
+            toggleBtn.addEventListener('mousedown', function() {
+                pressTimer = setTimeout(() => {
+                    toggleBtn.classList.add('press-hold');
+                    showEditModal();
+                    setTimeout(() => toggleBtn.classList.remove('press-hold'), 300);
+                }, 3000);
+            });
+            
+            toggleBtn.addEventListener('mouseup', function() {
+                if (pressTimer) {
+                    clearTimeout(pressTimer);
+                    pressTimer = null;
+                }
+            });
+            
+            toggleBtn.addEventListener('mouseleave', function() {
+                if (pressTimer) {
+                    clearTimeout(pressTimer);
+                    pressTimer = null;
+                }
+            });
+            
+            // للموبايل
+            toggleBtn.addEventListener('touchstart', function(e) {
+                pressTimer = setTimeout(() => {
+                    toggleBtn.classList.add('press-hold');
+                    showEditModal();
+                    setTimeout(() => toggleBtn.classList.remove('press-hold'), 300);
+                }, 3000);
+            });
+            
+            toggleBtn.addEventListener('touchend', function() {
+                if (pressTimer) {
+                    clearTimeout(pressTimer);
+                    pressTimer = null;
+                }
+            });
+        }
+
+        // ===== دوال الموقع =====
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        function createStars() {
+            const container = document.querySelector('.stars-container');
+            if (!container) return;
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement('div');
+                star.style.cssText = `position: absolute; width: ${Math.random() * 2 + 1}px; height: ${Math.random() * 2 + 1}px; background: white; border-radius: 50%; top: ${Math.random() * 100}%; left: ${Math.random() * 100}%; opacity: ${Math.random() * 0.6 + 0.3}; animation: twinkle ${Math.random() * 3 + 2}s infinite alternate;`;
+                container.appendChild(star);
+            }
+            const style = document.createElement('style');
+            style.textContent = `@keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }`;
+            document.head.appendChild(style);
+        }
+
+        function goToScreen(screenNumber) {
+            if (screenNumber < 1 || screenNumber > totalScreens) return;
+            const current = document.getElementById(`screen${currentScreen}`);
+            const next = document.getElementById(`screen${screenNumber}`);
+            if (!current || !next) return;
+            current.classList.remove('active');
+            setTimeout(() => {
+                current.style.display = 'none';
+                next.style.display = 'flex';
+                setTimeout(() => {
+                    next.classList.add('active');
+                }, 50);
+                currentScreen = screenNumber;
+                updateProgressTracker();
+            }, 400);
+        }
+
+        function updateProgressTracker() {
+            document.querySelectorAll('.tracker-dot').forEach((dot, index) => {
+                if (index + 1 === currentScreen) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+        }
+
+        function togglePanel() {
+            const panel = document.getElementById('controlPanel');
+            panel.classList.toggle('collapsed');
+        }
+
+        function activatePortal() { 
+            goToScreen(2); 
+            showNotification("✨ مرحباً في اللعبة!");
+        }
+        
+        // ===== لعبة الذاكرة =====
+        function setupMemoryGame() {
+            const gameBoard = document.getElementById('gameBoard');
+            if (!gameBoard) return;
+            gameBoard.innerHTML = '';
+            cards = [];
+            cardSymbols.forEach((symbol, index) => {
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                card.dataset.symbol = symbol;
+                card.dataset.index = index;
+                card.addEventListener('click', () => flipCard(card));
+                gameBoard.appendChild(card);
+                cards.push({ element: card, symbol: symbol, matched: false });
+            });
+        }
+        
+        function startChallenge() {
+            if (challengeActive) return;
+            challengeActive = true;
+            matches = 0;
+            flippedCards = [];
+            shuffleTimeLeft = 10;
+            
+            cards.forEach(card => {
+                card.element.className = 'game-card';
+                card.matched = false;
+                card.element.textContent = '';
+            });
+            
+            shuffleCards();
+            updateStats();
+            showNotification("🎮 اللعبة بدأت! دوري على الكروت المتشابهة!");
+        }
+        
+        function shuffleCards() {
+            cards.sort(() => Math.random() - 0.5);
+            cards.forEach((card, index) => {
+                card.element.style.order = index;
+            });
+        }
+        
+        function flipCard(card) {
+            if (!challengeActive || flippedCards.length >= 2 || card.classList.contains('revealed')) return;
+            const cardData = cards.find(c => c.element === card);
+            if (cardData.matched) return;
+            
+            card.classList.add('revealed');
+            card.textContent = cardData.symbol;
+            flippedCards.push(card);
+            
+            if (flippedCards.length === 2) {
+                checkMatch();
+            }
+        }
+        
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            const card1Data = cards.find(c => c.element === card1);
+            const card2Data = cards.find(c => c.element === card2);
+            
+            if (card1Data.symbol === card2Data.symbol) {
+                matches++;
+                card1Data.matched = true;
+                card2Data.matched = true;
+                setTimeout(() => {
+                    card1.classList.add('matched');
+                    card2.classList.add('matched');
+                    flippedCards = [];
+                    updateStats();
+                    if (matches === cardSymbols.length / 2) {
+                        endChallenge(true);
+                    }
+                }, 300);
+            } else {
+                setTimeout(() => {
+                    card1.classList.remove('revealed');
+                    card2.classList.remove('revealed');
+                    card1.textContent = '';
+                    card2.textContent = '';
+                    flippedCards = [];
+                }, 1000);
+            }
+        }
+        
+        function updateStats() {
+            const matchesElement = document.getElementById('matches');
+            if (matchesElement) {
+                matchesElement.textContent = `${matches}/${cardSymbols.length / 2}`;
+            }
+        }
+        
+        function endChallenge(isWin) {
+            challengeActive = false;
+            if (shuffleTimer) clearInterval(shuffleTimer);
+            if (isWin) {
+                showNotification("🏆 مبروك! فزتي باللعبة!");
+                setTimeout(() => goToScreen(3), 1500);
+            }
+        }
+        
+        function revealGift() { 
+            goToScreen(4); 
+            showNotification("💝 استعدي للهدية!");
+        }
+        
+        function openRealGift() { 
+            document.querySelector('.real-gift').style.display = 'none';
+            document.getElementById('revealedMessage').style.display = 'block';
+            showNotification("💌 افتحي قلبك واقرأي الرسالة!");
+        }
+        
+        function proceedToFinal() { 
+            goToScreen(5); 
+            showNotification("🎉 ألف مبروك على إكمال الرحلة!");
+        }
+        
+        function shareMoment() { 
+            navigator.clipboard.writeText(window.location.href); 
+            showNotification("📋 تم نسخ الرابط! شاركيه مع من تحبين 💝");
+        }
+        
+        function experienceAgain() { 
+            if(confirm("عايزة تعيشي الرحلة دي تاني؟")) location.reload();
+        }
+        
+        // ===== الموسيقى =====
+        function startMusicOnFirstClick() {
+            if (musicStarted) return;
+            const bgMusic = document.getElementById('backgroundMusic');
+            // استخدام ملف 123 كمثال - ضعي ملف الصوت باسم 123.mp3 في نفس المجلد
+            bgMusic.src = '123.mp3';
+            bgMusic.volume = 0.3;
+            bgMusic.play().then(() => {
+                musicPlaying = true;
+                musicStarted = true;
+                const musicIcon = document.getElementById('musicIcon');
+                if (musicIcon) musicIcon.className = 'fas fa-music';
+                showNotification("🎵 الموسيقى بدأت! استمتعي بالرحلة");
+            }).catch(e => {
+                console.log("الموسيقى تحتاج تفعيل يدوي");
+            });
+        }
+        
+        function toggleMusic() {
+            const bgMusic = document.getElementById('backgroundMusic');
+            const musicIcon = document.getElementById('musicIcon');
+            if (!bgMusic) return;
+            
+            if (musicPlaying) {
+                bgMusic.pause();
+                musicIcon.className = 'fas fa-volume-mute';
+                showNotification("🔇 الموسيقى متوقفة");
+                musicPlaying = false;
+            } else {
+                if (!bgMusic.src || bgMusic.src === '') {
+                    bgMusic.src = '123.mp3';
+                }
+                bgMusic.play().catch(e => console.log("error"));
+                musicIcon.className = 'fas fa-music';
+                showNotification("🔊 الموسيقى شغالة!");
+                musicPlaying = true;
+                musicStarted = true;
+            }
+        }
+
+        // ===== التهيئة =====
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const loading = document.getElementById('loadingScreen');
+                loading.style.opacity = '0';
+                setTimeout(() => loading.style.display = 'none', 500);
+            }, 2000);
+            
+            createStars();
+            setupMemoryGame();
+            loadSavedTexts();
+            setupLongPress();
+            
+            // إعداد أزرار التنقل
+            document.querySelectorAll('.tracker-dot').forEach(dot => {
+                dot.addEventListener('click', function() {
+                    goToScreen(parseInt(this.dataset.screen));
+                });
+            });
+            
+            document.querySelector('.panel-toggle').addEventListener('click', function(e) {
+                if (!pressTimer) {
+                    togglePanel();
+                }
+            });
+            
+            // تشغيل الموسيقى عند أول ضغطة في الموقع
+            document.body.addEventListener('click', startMusicOnFirstClick, { once: true });
+            
+            console.log("✅ الموقع جاهز! اضغطي مطولاً على زر الترس (3 ثواني) لتعديل النصوص");
+        });
+    </script>
 </body>
+
 </html>
