@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🎉 سنة كاملة.. وأنتِ أجمل صديقة 🎉</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- شاشة التحميل -->
+<div class="loading-screen" id="loadingScreen">
+    <div class="loader">
+        <div class="loader-spinner"></div>
+        <p id="loadingText">✨ جاهزة لمفاجأة السنة؟ ✨</p>
+    </div>
+</div>
+
+<!-- الشاشة 1: البداية -->
+<section class="screen screen-1 active" id="screen1">
+    <div class="stars-bg" id="starsBg"></div>
+    <div class="screen-content">
+        <div class="welcome-message">
+            <h1 id="welcomeTitle">🎉 ياهلااااااااا فيكِ يا صديقتي الغالية 🎉</h1>
+            <p id="welcomeSubtitle" class="welcome-subtitle">مرت سنة كاملة... وأنتِ جنبي 🤍</p>
+        </div>
+
+        <div class="magic-portal-container">
+            <div class="portal-guide">
+                <p id="portalGuide1">يلا يا عمري</p>
+                <p id="portalGuide2">اضغطي على البوابة عشان تشوفي المفاجأة 🚀</p>
+                <i class="fas fa-hand-point-down"></i>
+            </div>
+
+            <div class="magic-portal" id="magicPortal">
+                <div class="portal-ring outer-ring"></div>
+                <div class="portal-ring middle-ring"></div>
+                <div class="portal-core">
+                    <div class="sparkle">✨</div>
+                    <div class="sparkle">🌟</div>
+                    <div class="sparkle">💫</div>
+                    <div class="portal-text" id="portalText">إبدأي</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="note-bubble">
+            <p id="noteText1">💖 <strong>تذكير:</strong> كل مرحلة فيها مفاجأة أحلى من اللي قبلها</p>
+            <p id="noteText2" class="small-note">(والمتعة لسى ما بدأت 😉)</p>
+        </div>
+    </div>
+</section>
+
+<!-- الشاشة 2: اللعبة -->
+<section class="screen screen-2" id="screen2">
+    <div class="screen-content">
+        <div class="challenge-header">
+            <h2 id="gameTitle"><i class="fas fa-brain"></i> لعبة الذكريات 🧩</h2>
+            <p id="gameSubtitle" class="challenge-tagline">جربي تشغلي مخك شوية.. أكيد ذكية كفاية! 😎</p>
+        </div>
+
+        <div class="fun-instructions">
+            <div class="emoji-icon">🎮</div>
+            <h3 id="gameInstTitle">لعبة الذاكرة الممتعة</h3>
+            <p id="gameInstText">كل 10 ثواني، الكروت بتغير أماكنها! 🤹‍♀️</p>
+            <p id="gameHint" class="hint">(متفكريش كتير.. عقلك سريع أصلاً 💨)</p>
+        </div>
+
+        <div class="game-board" id="gameBoard"></div>
+
+        <div class="stats-display">
+            <div class="stat-box">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-label" id="matchLabel">المطابقة</div>
+                <div class="stat-value" id="matches">0/8</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">🔄</div>
+                <div class="stat-label" id="shuffleLabel">التحريك بعد</div>
+                <div class="stat-value" id="shuffleTime">10</div>
+            </div>
+        </div>
+
+        <button class="start-game-btn" id="startGameBtn">
+            <span class="btn-emoji">🎲</span>
+            <span class="btn-text" id="startBtnText">يلا بينا.. خلينا نشغل المخ!</span>
+        </button>
+    </div>
+</section>
+
+<!-- الشاشة 3: الاحتفال -->
+<section class="screen screen-3" id="screen3">
+    <div class="screen-content">
+        <div class="message-header">
+            <div class="trophy">🏆</div>
+            <h2 id="celebTitle">أبدعتييييييي يا حلوة 🎉</h2>
+            <div class="trophy">🏆</div>
+        </div>
+
+        <div class="celebration-text">
+            <p id="celebLine1" class="celeb-line">😎 شطورررررررررة!</p>
+            <p id="celebLine2" class="celeb-line">أثبتي إن مخك سريع وذكي زيك 😘</p>
+            <p id="celebLine3" class="celeb-line">بس الرحلة لسى ما خلصت.. في مفاجأة تستناكِ 🤫</p>
+        </div>
+
+        <div class="proud-moment">
+            <p id="proudText">"أهم شيء تكوني مبسوطة وتضحكي..<br>لأن ضحكتك هي أجمل شيء في الدنيا 🤗"</p>
+        </div>
+
+        <button class="love-btn" id="giftBtn">
+            <span class="heart-pulse">💓</span>
+            <span class="btn-words" id="giftBtnText">يلا نشوف الهدية!</span>
+            <span class="sparkle-effect">✨</span>
+        </button>
+    </div>
+</section>
+
+<!-- الشاشة 4: الهدية -->
+<section class="screen screen-4" id="screen4">
+    <div class="screen-content">
+        <div class="gift-stage">
+            <h3 id="giftTitle">🎁 واااااو وصلنا للجزء الحلو!</h3>
+            <p id="giftSubtitle">هنا أحلى جزء في الرحلة.. لأن هنا خرجت كل كلمة في قلبي 💝</p>
+
+            <div class="real-gift" id="realGift">
+                <div class="gift-bow">
+                    <div class="bow-center"></div>
+                    <div class="bow-loop left-loop"></div>
+                    <div class="bow-loop right-loop"></div>
+                </div>
+                <div class="gift-box">
+                    <i class="fas fa-gift"></i>
+                </div>
+            </div>
+
+            <div class="letter-reveal" id="letterReveal">
+                <div class="handwritten-letter">
+                    <h3 id="letterTitle">💌 لأجمل صديقة في الدنيا 💌</h3>
+                    <div id="letterContent"></div>
+                    <div class="signature" id="signature">
+                        <p>بكل الحب والاحترام</p>
+                        <p>صديقتك اللي عمرها ما تقدر تنساكِ</p>
+                        <p style="font-size: 1rem;">🤗✨</p>
+                    </div>
+                </div>
+                <button class="continue-btn" id="continueToFinal">
+                    <i class="fas fa-arrow-down"></i>
+                    <span id="continueText">يلا بينا للنهاية الحلوة!</span>
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- الشاشة 5: الختام -->
+<section class="screen screen-5" id="screen5">
+    <div class="screen-content">
+        <div class="top-decoration">
+            <div class="star">⭐</div>
+            <div class="star">🌟</div>
+            <div class="star">✨</div>
+        </div>
+
+        <h2 class="final-title" id="finalTitle">🎉 خلاصة الرحلة الرائعة دي! 🎉</h2>
+
+        <div class="wisdom-cards" id="wisdomCards"></div>
+
+        <div class="final-message">
+            <p class="final-quote" id="finalQuote">"الحمدلله على وجودك في حياتي.. والحمدلله على كل لحظة عشناها سوا 🤍"</p>
+            <p id="finalMessage">سنة كاملة وأنا معاكِ.. ويا رب سنين أطول وأجمل 💖</p>
+            <p id="finalMessage2" style="margin-top: 1rem;">أنتِ الدليل الحي إن <strong>الذكاء والقلب الكبير</strong> ممكن يجتمعوا في بنوتة وحدة!</p>
+        </div>
+
+        <div class="interactive-buttons">
+            <button class="fun-btn share-btn" id="shareBtn">
+                <i class="fas fa-share-alt"></i> <span id="shareText">شاركي الفرحة 🌍</span>
+            </button>
+            <button class="fun-btn replay-btn" id="replayBtn">
+                <i class="fas fa-redo"></i> <span id="replayText">أعيدي الرحلة 🔄</span>
+            </button>
+        </div>
+
+        <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.2);">
+            <p id="footerLine1">مع كل <strong>الحب</strong> والإعجاب اللي في قلبي،</p>
+            <h3 style="color: #ff6b8b; margin: 0.5rem 0;" id="footerName">صديقتك 🎁</h3>
+            <p id="footerDate">📆 سنة كاملة.. وأنتِ جنبي ✨</p>
+        </div>
+    </div>
+</section>
+
+<!-- لوحة التحكم -->
+<div class="control-panel" id="controlPanel">
+    <button class="panel-toggle" id="panelToggle">
+        <i class="fas fa-cog"></i>
+    </button>
+    <div class="panel-content" id="panelContent">
+        <div class="tracker-dots">
+            <span class="tracker-dot" data-screen="1">١</span>
+            <span class="tracker-dot" data-screen="2">٢</span>
+            <span class="tracker-dot" data-screen="3">٣</span>
+            <span class="tracker-dot" data-screen="4">٤</span>
+            <span class="tracker-dot" data-screen="5">٥</span>
+        </div>
+        <div class="tracker-text" id="screenIndicator">البداية</div>
+    </div>
+</div>
+
+<!-- زر الدخول للإدارة (مخفي - اضغط 3 ثواني) -->
+<div id="adminSecret" style="position: fixed; bottom: 10px; right: 10px; width: 50px; height: 50px; cursor: pointer; z-index: 9999; opacity: 0.01;"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
