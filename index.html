@@ -629,7 +629,8 @@
             margin-bottom: 0.5rem;
         }
 
-        .edit-item input, .edit-item textarea {
+        .edit-item input,
+        .edit-item textarea {
             width: 100%;
             padding: 10px;
             border-radius: 12px;
@@ -687,6 +688,7 @@
                 opacity: 0;
                 transform: translateX(-50%) translateY(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(-50%) translateY(0);
@@ -698,6 +700,7 @@
                 opacity: 0;
                 transform: translateY(-50px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -705,12 +708,32 @@
         }
 
         @media (max-width: 768px) {
-            .welcome-message h1 { font-size: 1.8rem; }
-            .magic-portal { width: 200px; height: 200px; }
-            .portal-core { width: 120px; height: 120px; }
-            .portal-text { font-size: 1.8rem; }
-            .game-board { grid-template-columns: repeat(4, 1fr); gap: 8px; }
-            .edit-modal-content { padding: 1.5rem; }
+            .welcome-message h1 {
+                font-size: 1.8rem;
+            }
+
+            .magic-portal {
+                width: 200px;
+                height: 200px;
+            }
+
+            .portal-core {
+                width: 120px;
+                height: 120px;
+            }
+
+            .portal-text {
+                font-size: 1.8rem;
+            }
+
+            .game-board {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+
+            .edit-modal-content {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -965,91 +988,114 @@
         let shuffleTimer;
         let shuffleTimeLeft = 10;
         let pressTimer = null;
-        
+
         const cardSymbols = ['🐵', '✨', '🌟', '💖', '🎯', '🏆', '🎁', '💎', '🐵', '✨', '🌟', '💖', '🎯', '🏆', '🎁', '💎'];
 
-        // ===== عناصر النصوص القابلة للتعديل =====
-        const editableElements = {
-            welcomeTitle: { element: null, default: "🎉 سنة كاملة من الصداقة الجميلة! 💖" },
-            welcomeText: { element: null, default: "رحلة خاصة مليئة بالذكريات واللحظات الحلوة.. استمتعي بكل تفاصيلها" },
-            portalGuideText1: { element: null, default: "أهلاً بك في رحلة الذكريات" },
-            portalGuideText2: { element: null, default: "اضغطي على ابدأ لتبدأ المغامرة 🚀" },
-            noteText1: { element: null, default: "💝 كل لحظة معك تستحق الاحتفال" },
-            noteText2: { element: null, default: "(رحلة مليئة بالمفاجآت الجميلة 😊)" },
-            challengeTitle: { element: null, default: "لعبة الذاكرة 🧩" },
-            challengeTagline: { element: null, default: "جربي تشغلي مخك شوية مع اللعبة المسلية" },
-            gameTitle1: { element: null, default: "لعبة الذاكرة" },
-            gameDesc1: { element: null, default: "كل 10 ثواني، الكروت بتغير أماكنها" },
-            gameTitle2: { element: null, default: "القاعدة بسيطة" },
-            gameDesc2: { element: null, default: "دوري على الكروت المتشابهة واربطيها مع بعض" },
-            startBtnText: { element: null, default: "🎲 ابدأي اللعبة" },
-            funMessage: { element: null, default: "💭 لعبة بسيطة بس ممتعة، استمتعي بالوقت!" },
-            celebrationTitle: { element: null, default: "🎉 أحسنتِ! 🎉" },
-            celebLine1: { element: null, default: "😊 ممتاز!" },
-            celebLine2: { element: null, default: "أذهلتِ الجميع بذكائك" },
-            celebLine3: { element: null, default: "الرحلة لا تزال مستمرة" },
-            actionNote: { element: null, default: "✨ استعدي للمفاجأة القادمة" },
-            loveBtnText: { element: null, default: "تابعي الرحلة" },
-            giftTitle: { element: null, default: "🎁 هدية خاصة 🎁" },
-            giftDesc: { element: null, default: "هنا أجمل جزء في الرحلة.. كلمات من القلب" },
-            giftNote: { element: null, default: "\"كل كلمة كتبتها بحب وأمل إنها تفرحك\" 💝" },
-            giftInstruction: { element: null, default: "اضغطي على الهدية لفتحها" },
-            letterTo: { element: null, default: "أغلى صديقة في الدنيا" },
-            letterFrom: { element: null, default: "صديقك/صديقتك" },
-            letterGreeting: { element: null, default: "أجمل تحية لأجمل إنسانة" },
-            letterPara1: { element: null, default: "سنة كاملة من الصداقة مرت بسرعة! كل لحظة معك كانت مميزة وحلوة" },
-            letterPara2: { element: null, default: "أنا سعيدة/سعيد جداً إنك في حياتي، وجودك فرق كبير" },
-            letterPara3: { element: null, default: "شكراً لكل لحظة حلوة، لكل ضحكة، لكل ذكرى" },
-            letterPara4: { element: null, default: "أنت إنسانة رائعة بكل معنى الكلمة" },
-            specialNote: { element: null, default: "\"الصداقة الحقيقية كنز نادر.. وشكراً لأنك هذا الكنز\" 💎" },
-            closingText: { element: null, default: "أتمنى لك سنة مليئة بالفرح والنجاح والسعادة 💫" },
-            signature: { element: null, default: "مع كل الحب والتقدير" },
-            signatureNick: { element: null, default: "صديقك/صديقتك للأبد 🤗" },
-            continueText: { element: null, default: "إلى النهاية" },
-            finalTitle: { element: null, default: "🎉 ختام الرحلة 🎉" },
-            wisdom1: { element: null, default: "\"الصداقة الحقيقية لا تُقدر بثمن، هي هدية من الله\" ✨" },
-            wisdom2: { element: null, default: "\"أجمل شيء في الدنيا هو وجود أشخاص يضيئون حياتك\" 🌟" },
-            finalOpening: { element: null, default: "إلى صديقتي الغالية،" },
-            finalMessage: { element: null, default: "شكراً لأنك جزء من حياتي، وجودك يجعل كل شيء أجمل" },
-            finalQuote: { element: null, default: "\"الصداقة ليست مجرد علاقة، هي روح تسكن القلب\" 💖" },
-            finalSignLine: { element: null, default: "مع كل الحب والاحترام،" },
-            finalSignName: { element: null, default: "صديقك/صديقتك للأبد 🎁" }
+        // ===== النصوص الافتراضية =====
+        const defaultTexts = {
+            welcomeTitle: "🎉 سنة كاملة من الصداقة الجميلة! 💖",
+            welcomeText: "رحلة خاصة مليئة بالذكريات واللحظات الحلوة.. استمتعي بكل تفاصيلها",
+            portalGuideText1: "أهلاً بك في رحلة الذكريات",
+            portalGuideText2: "اضغطي على ابدأ لتبدأ المغامرة 🚀",
+            noteText1: "💝 كل لحظة معك تستحق الاحتفال",
+            noteText2: "(رحلة مليئة بالمفاجآت الجميلة 😊)",
+            challengeTitle: "لعبة الذاكرة 🧩",
+            challengeTagline: "جربي تشغلي مخك شوية مع اللعبة المسلية",
+            gameTitle1: "لعبة الذاكرة",
+            gameDesc1: "كل 10 ثواني، الكروت بتغير أماكنها",
+            gameTitle2: "القاعدة بسيطة",
+            gameDesc2: "دوري على الكروت المتشابهة واربطيها مع بعض",
+            startBtnText: "🎲 ابدأي اللعبة",
+            funMessage: "💭 لعبة بسيطة بس ممتعة، استمتعي بالوقت!",
+            celebrationTitle: "🎉 أحسنتِ! 🎉",
+            celebLine1: "😊 ممتاز!",
+            celebLine2: "أذهلتِ الجميع بذكائك",
+            celebLine3: "الرحلة لا تزال مستمرة",
+            actionNote: "✨ استعدي للمفاجأة القادمة",
+            loveBtnText: "تابعي الرحلة",
+            giftTitle: "🎁 هدية خاصة 🎁",
+            giftDesc: "هنا أجمل جزء في الرحلة.. كلمات من القلب",
+            giftNote: "\"كل كلمة كتبتها بحب وأمل إنها تفرحك\" 💝",
+            giftInstruction: "اضغطي على الهدية لفتحها",
+            letterTo: "أغلى صديقة في الدنيا",
+            letterFrom: "صديقك/صديقتك",
+            letterGreeting: "أجمل تحية لأجمل إنسانة",
+            letterPara1: "سنة كاملة من الصداقة مرت بسرعة! كل لحظة معك كانت مميزة وحلوة",
+            letterPara2: "أنا سعيدة/سعيد جداً إنك في حياتي، وجودك فرق كبير",
+            letterPara3: "شكراً لكل لحظة حلوة، لكل ضحكة، لكل ذكرى",
+            letterPara4: "أنت إنسانة رائعة بكل معنى الكلمة",
+            specialNote: "\"الصداقة الحقيقية كنز نادر.. وشكراً لأنك هذا الكنز\" 💎",
+            closingText: "أتمنى لك سنة مليئة بالفرح والنجاح والسعادة 💫",
+            signature: "مع كل الحب والتقدير",
+            signatureNick: "صديقك/صديقتك للأبد 🤗",
+            continueText: "إلى النهاية",
+            finalTitle: "🎉 ختام الرحلة 🎉",
+            wisdom1: "\"الصداقة الحقيقية لا تُقدر بثمن، هي هدية من الله\" ✨",
+            wisdom2: "\"أجمل شيء في الدنيا هو وجود أشخاص يضيئون حياتك\" 🌟",
+            finalOpening: "إلى صديقتي الغالية،",
+            finalMessage: "شكراً لأنك جزء من حياتي، وجودك يجعل كل شيء أجمل",
+            finalQuote: "\"الصداقة ليست مجرد علاقة، هي روح تسكن القلب\" 💖",
+            finalSignLine: "مع كل الحب والاحترام،",
+            finalSignName: "صديقك/صديقتك للأبد 🎁"
         };
 
-        // ===== تحميل النصوص المحفوظة =====
-        function loadSavedTexts() {
-            for (let key in editableElements) {
-                const saved = localStorage.getItem(`editable_${key}`);
-                editableElements[key].element = document.getElementById(key);
-                if (saved && editableElements[key].element) {
-                    editableElements[key].element.innerHTML = saved;
+        // ===== تحميل النصوص من الرابط =====
+        function loadTextsFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let hasChanges = false;
+            
+            for (let key in defaultTexts) {
+                const element = document.getElementById(key);
+                if (element) {
+                    const urlValue = urlParams.get(key);
+                    if (urlValue) {
+                        // فك تشفير النص من الرابط
+                        try {
+                            const decodedText = decodeURIComponent(atob(urlValue));
+                            element.innerHTML = decodedText;
+                            hasChanges = true;
+                        } catch(e) {
+                            element.innerHTML = defaultTexts[key];
+                        }
+                    } else {
+                        element.innerHTML = defaultTexts[key];
+                    }
                 }
             }
+            
+            return hasChanges;
         }
 
-        // ===== حفظ جميع النصوص =====
-        function saveAllTexts() {
-            for (let key in editableElements) {
-                if (editableElements[key].element) {
-                    localStorage.setItem(`editable_${key}`, editableElements[key].element.innerHTML);
+        // ===== إنشاء رابط مع التعديلات =====
+        function generateShareableURL() {
+            const urlParams = new URLSearchParams();
+            
+            for (let key in defaultTexts) {
+                const element = document.getElementById(key);
+                if (element && element.innerHTML !== defaultTexts[key]) {
+                    // تشفير النص ليكون صالحاً للرابط
+                    const encodedText = btoa(encodeURIComponent(element.innerHTML));
+                    urlParams.set(key, encodedText);
                 }
             }
+            
+            const baseURL = window.location.origin + window.location.pathname;
+            const newURL = urlParams.toString() ? baseURL + '?' + urlParams.toString() : baseURL;
+            return newURL;
         }
 
         // ===== عرض نافذة التعديل =====
         function showEditModal() {
-            // جمع القيم الحالية
-            const currentValues = {};
-            for (let key in editableElements) {
-                if (editableElements[key].element) {
-                    currentValues[key] = editableElements[key].element.innerHTML;
-                } else {
-                    currentValues[key] = editableElements[key].default;
-                }
-            }
-            
             const modal = document.createElement('div');
             modal.className = 'edit-modal';
+            
+            // جمع القيم الحالية
+            let currentValues = {};
+            for (let key in defaultTexts) {
+                const element = document.getElementById(key);
+                currentValues[key] = element ? element.innerHTML : defaultTexts[key];
+            }
+            
             modal.innerHTML = `
                 <div class="edit-modal-content">
                     <h3>✏️ تخصيص النصوص ✏️</h3>
@@ -1082,11 +1128,11 @@
                         <textarea id="edit_finalQuote">${escapeHtml(currentValues.finalQuote)}</textarea>
                     </div>
                     <div class="modal-buttons">
-                        <button class="save-btn" onclick="saveEditsAndClose()">💾 حفظ التعديلات</button>
+                        <button class="save-btn" onclick="saveEditsAndGenerateLink()">💾 حفظ وإنشاء رابط</button>
                         <button class="cancel-btn" onclick="closeModal()">❌ إلغاء</button>
                     </div>
                     <div style="margin-top: 15px; text-align: center;">
-                        <button onclick="resetToDefaultAndClose()" style="background: rgba(255,255,255,0.3); color: white; padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer;">🔄 إعادة للافتراضي</button>
+                        <button onclick="resetToDefault()" style="background: rgba(255,255,255,0.3); color: white; padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer;">🔄 إعادة للافتراضي</button>
                     </div>
                 </div>
             `;
@@ -1100,7 +1146,8 @@
             return div.innerHTML;
         }
 
-        function saveEditsAndClose() {
+        function saveEditsAndGenerateLink() {
+            // تحديث العناصر بالقيم الجديدة
             const edits = {
                 welcomeTitle: document.getElementById('edit_welcomeTitle')?.value,
                 welcomeText: document.getElementById('edit_welcomeText')?.value,
@@ -1112,31 +1159,44 @@
             };
             
             for (let key in edits) {
-                if (edits[key] !== undefined && editableElements[key]?.element) {
-                    editableElements[key].element.innerHTML = edits[key];
-                    localStorage.setItem(`editable_${key}`, edits[key]);
+                if (edits[key] !== undefined) {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        element.innerHTML = edits[key];
+                    }
                 }
             }
             
             closeModal();
-            showNotification("✅ تم حفظ التعديلات! شاركي الرابط ليظهر بنفس الشكل");
+            
+            // إنشاء الرابط الجديد مع التعديلات
+            const newURL = generateShareableURL();
             
             // نسخ الرابط
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                showNotification("📋 تم نسخ الرابط! شاركيه مع من تحبين");
+            navigator.clipboard.writeText(newURL).then(() => {
+                showNotification("✅ تم حفظ التعديلات! الرابط الجديد تم نسخه 📋");
+                showNotification("🔗 أرسلي هذا الرابط لصديقتك وسترى نفس التعديلات");
+                
+                // عرض الرابط في console للمساعدة
+                console.log("الرابط للمشاركة: " + newURL);
             });
         }
         
-        function resetToDefaultAndClose() {
+        function resetToDefault() {
             if (confirm("هل تريدين إعادة جميع النصوص إلى الوضع الافتراضي؟")) {
-                for (let key in editableElements) {
-                    if (editableElements[key].element) {
-                        editableElements[key].element.innerHTML = editableElements[key].default;
-                        localStorage.setItem(`editable_${key}`, editableElements[key].default);
+                for (let key in defaultTexts) {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        element.innerHTML = defaultTexts[key];
                     }
                 }
                 closeModal();
-                showNotification("✨ تم إعادة جميع النصوص إلى الوضع الافتراضي!");
+                
+                // إنشاء رابط جديد بدون تعديلات
+                const newURL = window.location.origin + window.location.pathname;
+                navigator.clipboard.writeText(newURL).then(() => {
+                    showNotification("✨ تم إعادة النصوص للافتراضي! الرابط الجديد تم نسخه");
+                });
             }
         }
         
@@ -1197,7 +1257,7 @@
             notification.className = 'notification';
             notification.textContent = message;
             document.body.appendChild(notification);
-            setTimeout(() => notification.remove(), 3000);
+            setTimeout(() => notification.remove(), 4000);
         }
 
         function createStars() {
@@ -1242,11 +1302,11 @@
             panel.classList.toggle('collapsed');
         }
 
-        function activatePortal() { 
-            goToScreen(2); 
+        function activatePortal() {
+            goToScreen(2);
             showNotification("✨ مرحباً في اللعبة!");
         }
-        
+
         // ===== لعبة الذاكرة =====
         function setupMemoryGame() {
             const gameBoard = document.getElementById('gameBoard');
@@ -1263,51 +1323,51 @@
                 cards.push({ element: card, symbol: symbol, matched: false });
             });
         }
-        
+
         function startChallenge() {
             if (challengeActive) return;
             challengeActive = true;
             matches = 0;
             flippedCards = [];
             shuffleTimeLeft = 10;
-            
+
             cards.forEach(card => {
                 card.element.className = 'game-card';
                 card.matched = false;
                 card.element.textContent = '';
             });
-            
+
             shuffleCards();
             updateStats();
             showNotification("🎮 اللعبة بدأت! دوري على الكروت المتشابهة!");
         }
-        
+
         function shuffleCards() {
             cards.sort(() => Math.random() - 0.5);
             cards.forEach((card, index) => {
                 card.element.style.order = index;
             });
         }
-        
+
         function flipCard(card) {
             if (!challengeActive || flippedCards.length >= 2 || card.classList.contains('revealed')) return;
             const cardData = cards.find(c => c.element === card);
             if (cardData.matched) return;
-            
+
             card.classList.add('revealed');
             card.textContent = cardData.symbol;
             flippedCards.push(card);
-            
+
             if (flippedCards.length === 2) {
                 checkMatch();
             }
         }
-        
+
         function checkMatch() {
             const [card1, card2] = flippedCards;
             const card1Data = cards.find(c => c.element === card1);
             const card2Data = cards.find(c => c.element === card2);
-            
+
             if (card1Data.symbol === card2Data.symbol) {
                 matches++;
                 card1Data.matched = true;
@@ -1331,14 +1391,14 @@
                 }, 1000);
             }
         }
-        
+
         function updateStats() {
             const matchesElement = document.getElementById('matches');
             if (matchesElement) {
                 matchesElement.textContent = `${matches}/${cardSymbols.length / 2}`;
             }
         }
-        
+
         function endChallenge(isWin) {
             challengeActive = false;
             if (shuffleTimer) clearInterval(shuffleTimer);
@@ -1347,37 +1407,38 @@
                 setTimeout(() => goToScreen(3), 1500);
             }
         }
-        
-        function revealGift() { 
-            goToScreen(4); 
+
+        function revealGift() {
+            goToScreen(4);
             showNotification("💝 استعدي للهدية!");
         }
-        
-        function openRealGift() { 
+
+        function openRealGift() {
             document.querySelector('.real-gift').style.display = 'none';
             document.getElementById('revealedMessage').style.display = 'block';
             showNotification("💌 افتحي قلبك واقرأي الرسالة!");
         }
-        
-        function proceedToFinal() { 
-            goToScreen(5); 
+
+        function proceedToFinal() {
+            goToScreen(5);
             showNotification("🎉 ألف مبروك على إكمال الرحلة!");
         }
-        
-        function shareMoment() { 
-            navigator.clipboard.writeText(window.location.href); 
-            showNotification("📋 تم نسخ الرابط! شاركيه مع من تحبين 💝");
+
+        function shareMoment() {
+            const shareURL = generateShareableURL();
+            navigator.clipboard.writeText(shareURL).then(() => {
+                showNotification("📋 تم نسخ الرابط مع التعديلات الحالية!");
+            });
         }
-        
-        function experienceAgain() { 
-            if(confirm("عايزة تعيشي الرحلة دي تاني؟")) location.reload();
+
+        function experienceAgain() {
+            if (confirm("عايزة تعيشي الرحلة دي تاني؟")) location.reload();
         }
-        
+
         // ===== الموسيقى =====
         function startMusicOnFirstClick() {
             if (musicStarted) return;
             const bgMusic = document.getElementById('backgroundMusic');
-            // استخدام ملف 123 كمثال - ضعي ملف الصوت باسم 123.mp3 في نفس المجلد
             bgMusic.src = '123.mp3';
             bgMusic.volume = 0.3;
             bgMusic.play().then(() => {
@@ -1390,12 +1451,12 @@
                 console.log("الموسيقى تحتاج تفعيل يدوي");
             });
         }
-        
+
         function toggleMusic() {
             const bgMusic = document.getElementById('backgroundMusic');
             const musicIcon = document.getElementById('musicIcon');
             if (!bgMusic) return;
-            
+
             if (musicPlaying) {
                 bgMusic.pause();
                 musicIcon.className = 'fas fa-volume-mute';
@@ -1420,29 +1481,37 @@
                 loading.style.opacity = '0';
                 setTimeout(() => loading.style.display = 'none', 500);
             }, 2000);
-            
+
             createStars();
             setupMemoryGame();
-            loadSavedTexts();
-            setupLongPress();
             
+            // تحميل النصوص من الرابط إذا وجدت
+            const hasURLTexts = loadTextsFromURL();
+            if (hasURLTexts) {
+                showNotification("✨ تم تحميل النسخة المخصصة بنجاح!");
+            }
+            
+            setupLongPress();
+
             // إعداد أزرار التنقل
             document.querySelectorAll('.tracker-dot').forEach(dot => {
                 dot.addEventListener('click', function() {
                     goToScreen(parseInt(this.dataset.screen));
                 });
             });
-            
+
             document.querySelector('.panel-toggle').addEventListener('click', function(e) {
                 if (!pressTimer) {
                     togglePanel();
                 }
             });
-            
+
             // تشغيل الموسيقى عند أول ضغطة في الموقع
             document.body.addEventListener('click', startMusicOnFirstClick, { once: true });
-            
-            console.log("✅ الموقع جاهز! اضغطي مطولاً على زر الترس (3 ثواني) لتعديل النصوص");
+
+            console.log("✅ الموقع جاهز!");
+            console.log("💡 اضغطي مطولاً على زر الترس (3 ثواني) لتعديل النصوص");
+            console.log("📌 بعد التعديل، سيتم إنشاء رابط جديد يحتوي على التعديلات");
         });
     </script>
 </body>
