@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>إلى سكرتي 🌸✨</title>
+    
+    <!-- خطوط عربية فخمة ومتباينة -->
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700;900&family=Amiri:ital,wght@0,400;0,700;1,400&family=Lalezar&display=swap" rel="stylesheet">
+    
+    <!-- مكتبة الجزيئات (للاحتفال) -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* ================== THEME & VIBRANT COLORS ================== */
+        :root {
+            --bg-night: #130f25;     /* ليلي دافئ عميق */
+            --bg-twilight: #2d1b4e;  /* توتي غامق */
+            --glow-pink: #ff477e;    /* وردي مشبع وجذاب */
+            --glow-peach: #ffbba6;   /* خوخي مشرق */
+            --glow-gold: #ffdf00;    /* ذهبي مشع */
+            --glow-cyan: #00f2fe;    /* سماوي نيون */
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 187, 166, 0.25);
+            --text-main: #f8f9fa;
+        }
+
+        * {
+            box-sizing: border-box; margin: 0; padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none; -webkit-user-select: none;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--bg-night), var(--bg-twilight));
+            background-size: 200% 200%;
+            animation: bgShift 12s ease infinite alternate;
+            color: var(--text-main);
+            min-height: 100vh; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            touch-action: pan-y; /* لتجنب مشاكل اللمس */
+        }
+
+        @keyframes bgShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* ذرات غبار مضيئة تسبح في الخلفية */
+        .ambient-dust {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(255, 71, 126, 0.3) 1px, transparent 1px);
+            background-size: 50px 50px; opacity: 0.4;
+            animation: floatUp 30s linear infinite; pointer-events: none; z-index: 0;
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100vh); }
+        }
+
+        /* ================== CONTAINERS & STAGES ================== */
+        .container {
+            position: relative; width: 100%; max-width: 500px; height: 100dvh;
+            z-index: 10; display: flex; align-items: center; justify-content: center;
+        }
+
+        .stage {
+            position: absolute; width: 92%; text-align: center;
+            opacity: 0; transform: scale(0.95) translateY(20px);
+            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+            pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        .stage.active { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
+        .stage.fade-out { opacity: 0; transform: scale(1.05) translateY(-30px); filter: blur(5px); }
+
+        /* ================== TYPOGRAPHY ================== */
+        h1.poetic-title {
+            font-family: 'Aref Ruqaa', serif; font-size: 3rem;
+            background: linear-gradient(to right, var(--glow-gold), var(--glow-pink));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(255, 71, 126, 0.5));
+            line-height: 1.4; font-weight: normal;
+        }
+
+        p.soul-text {
+            font-family: 'Amiri', serif; font-size: 1.4rem; line-height: 1.8;
+            color: #e2e8f0; margin-bottom: 30px; text-shadow: 0 0 8px rgba(0,0,0,0.6);
+        }
+
+        /* ================== AUDIO BUTTON ================== */
+        .audio-toggle {
+            position: fixed; top: 20px; right: 20px; width: 50px; height: 50px;
+            border-radius: 50%; background: rgba(0,0,0,0.6); border: 2px solid var(--glow-gold);
+            color: var(--glow-gold); font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 9999; backdrop-filter: blur(10px); box-shadow: 0 0 15px rgba(255, 223, 0, 0.3);
+            transition: all 0.3s;
+        }
+        .audio-toggle:active { transform: scale(0.9); }
+
+        /* ================== STAGE 1: FINGERPRINT IMAGE CONTAINER ================== */
+        .breathe-wrapper {
+            position: relative; width: 150px; height: 150px; margin: 20px auto;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer; touch-action: none; 
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px solid rgba(0, 242, 254, 0.15);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        /* خط الليزر الماسح المتطور */
+        .scan-laser {
+            position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--glow-cyan), transparent);
+            box-shadow: 0 0 12px var(--glow-cyan), 0 0 20px var(--glow-cyan);
+            animation: scanning 2.5s linear infinite;
+            opacity: 0.6; pointer-events: none; z-index: 3;
+        }
+
+        /* تنسيق صورة البصمة البديلة */
+        .fp-img {
+            width: 85px; height: 85px; 
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.4));
+            transition: all 0.4s ease; z-index: 2; pointer-events: none;
+        }
+
+        .fp-ring {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-90deg);
+            width: 150px; height: 150px; pointer-events: none; z-index: 4;
+        }
+
+        .ring-bg { fill: none; stroke: rgba(255,255,255,0.03); stroke-width: 5; }
+        .ring-fill {
+            fill: none; stroke: var(--glow-cyan); stroke-width: 5; stroke-linecap: round;
+            stroke-dasharray: 440; stroke-dashoffset: 440; 
+            transition: stroke-dashoffset 0.1s linear;
+            filter: drop-shadow(0 0 10px var(--glow-cyan));
+        }
+
+        .fp-glow {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 110px; height: 110px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.4) 0%, transparent 70%);
+            opacity: 0; transition: opacity 0.5s; z-index: 1; pointer-events: none;
+        }
+
+        /* حالات التفاعل والضغط المطول الحقيقية للبصمة المحدثة */
+        .holding.breathe-wrapper {
+            border-color: var(--glow-pink);
+            box-shadow: 0 0 25px rgba(255, 71, 126, 0.3);
+        }
+        .holding .fp-img { 
+            transform: scale(0.95); 
+            filter: drop-shadow(0 0 18px var(--glow-pink));
+        }
+        .holding .fp-glow { background: radial-gradient(circle, rgba(255, 71, 126, 0.5) 0%, transparent 70%); opacity: 1; animation: pulseGlow 1.2s infinite alternate; }
+        .holding .scan-laser {
+            background: linear-gradient(90deg, transparent, var(--glow-pink), transparent);
+            box-shadow: 0 0 12px var(--glow-pink);
+            animation-duration: 1s; /* يتسارع خط الليزر ليوحي بالتحليل المباشر */
+        }
+
+        @keyframes scanning {
+            0% { top: 0%; }
+            50% { top: 100%; }
+            100% { top: 0%; }
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: translate(-50%, -50%) scale(0.9); }
+            100% { transform: translate(-50%, -50%) scale(1.25); }
+        }
+
+        .breathe-text {
+            font-family: 'Cairo', sans-serif; font-size: 1.4rem; font-weight: 900;
+            color: var(--glow-peach); margin-top: 20px; height: 40px;
+            text-shadow: 0 0 10px rgba(255, 187, 166, 0.5); transition: 0.3s;
+        }
+
+        /* ================== STAGE 2: CATCH THE STARS ================== */
+        #stars-area {
+            position: relative; width: 100%; height: 350px;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 20px; overflow: hidden; margin-bottom: 20px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            touch-action: none;
+        }
+
+        .fly-star {
+            position: absolute; bottom: -50px; width: 60px; height: 60px;
+            display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
+            cursor: pointer; filter: drop-shadow(0 0 15px var(--glow-gold));
+            animation: floatStar linear forwards; z-index: 5;
+        }
+        .fly-star:active { transform: scale(1.3); filter: drop-shadow(0 0 25px var(--glow-pink)); }
+
+        @keyframes floatStar {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            10% { opacity: 1; transform: scale(1); }
+            50% { transform: translateY(-200px) translateX(30px) scale(1.2); }
+            100% { transform: translateY(-400px) translateX(-30px) scale(1); opacity: 1; }
+        }
+
+        /* حل مشكلة الرسالة المقطوعة */
+        .star-toast {
+            position: absolute; 
+            top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5);
+            width: 85%; 
+            background: rgba(255, 255, 255, 0.95);
+            color: #130f25; padding: 15px 20px; border-radius: 20px;
+            font-family: 'Cairo', sans-serif; font-weight: 900; font-size: 1.25rem;
+            text-align: center; white-space: normal; 
+            pointer-events: none; z-index: 20;
+            box-shadow: 0 5px 25px rgba(255, 71, 126, 0.7);
+            border: 2px solid var(--glow-pink);
+            opacity: 0;
+            animation: centerPop 2s forwards;
+        }
+
+        @keyframes centerPop {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            15% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+            25% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+        }
+
+        .btn-elegant {
+            background: transparent; border: 2px solid var(--glow-pink); color: var(--glow-peach);
+            padding: 12px 40px; border-radius: 50px; font-family: 'Cairo', sans-serif; font-size: 1.3rem; font-weight: bold;
+            cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(255, 71, 126, 0.2); margin-top: 15px;
+        }
+        .btn-elegant:active { transform: scale(0.95); background: var(--glow-pink); color: #fff; }
+
+        /* ================== STAGE 3: MEMORY CRYSTALS ================== */
+        .crystals-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%; margin-bottom: 20px;
+        }
+
+        .crystal {
+            position: relative; height: 110px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.3s;
+        }
+
+        .crystal-shape {
+            width: 45px; height: 75px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.02));
+            border: 1px solid var(--glass-border);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            box-shadow: 0 0 15px rgba(255, 187, 166, 0.2);
+            transition: all 0.5s; animation: pulseCrystal 3s infinite alternate;
+        }
+
+        @keyframes pulseCrystal {
+            0% { transform: translateY(0); filter: drop-shadow(0 0 5px var(--glow-peach)); }
+            100% { transform: translateY(-8px); filter: drop-shadow(0 0 15px var(--glow-pink)); }
+        }
+
+        .crystal.lit .crystal-shape {
+            background: linear-gradient(135deg, var(--glow-gold), var(--glow-pink));
+            box-shadow: 0 0 30px var(--glow-pink); animation: none; transform: scale(1.15) rotate(180deg);
+        }
+
+        /* نافذة الرسائل العميقة الزجاجية */
+        .msg-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(12px);
+            z-index: 100; display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: all 0.4s ease;
+        }
+        .msg-overlay.show { opacity: 1; pointer-events: auto; }
+
+        .msg-card {
+            width: 90%; max-width: 400px; background: rgba(30, 20, 45, 0.95);
+            border: 1px solid var(--glow-pink); border-radius: 20px; padding: 40px 25px;
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 30px rgba(255,71,126,0.2);
+            transform: scale(0.8) translateY(20px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .msg-overlay.show .msg-card { transform: scale(1) translateY(0); }
+
+        .msg-text {
+            font-family: 'Amiri', serif; font-size: 1.5rem; color: #fff; line-height: 1.9;
+            margin-bottom: 30px; text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .btn-ack {
+            background: var(--glow-pink); color: #fff; border: none;
+            padding: 12px 35px; border-radius: 30px; font-family: 'Cairo', sans-serif; font-size: 1.3rem; font-weight: 900;
+            cursor: pointer; box-shadow: 0 0 20px var(--glow-pink); transition: 0.2s;
+        }
+        .btn-ack:active { transform: scale(0.9); }
+
+        /* ================== STAGE 4: THE GRAND LETTER ================== */
+        .letter-wrap {
+            width: 100%; text-align: right; line-height: 2.2; font-size: 1.4rem; color: #fff;
+            text-shadow: 0 0 10px rgba(0,0,0,0.9); margin-bottom: 30px;
+            height: 55vh; overflow-y: auto; padding-right: 15px;
+            font-family: 'Amiri', serif;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .letter-wrap::-webkit-scrollbar { width: 5px; }
+        .letter-wrap::-webkit-scrollbar-thumb { background: var(--glow-pink); border-radius: 10px; }
+
+        /* ================== STAGE 5: CLIMAX ================== */
+        .climax-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, #3e1b29 0%, #0a0a0f 100%);
+            z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: all 1.5s ease;
+        }
+
+        .climax-screen.show { opacity: 1; pointer-events: auto; }
+
+        .climax-text {
+            font-family: 'Lalezar', cursive; font-size: 3.5rem; color: var(--glow-gold);
+            text-shadow: 0 0 20px var(--glow-gold), 0 0 50px var(--glow-pink);
+            line-height: 1.3; text-align: center; margin-bottom: 20px;
+            transform: scale(0.8); opacity: 0; transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .climax-screen.show .climax-text { transform: scale(1); opacity: 1; }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <!-- موسيقى الخلفية -->
+    <audio id="bgm" loop>
+        <source src="LOVE.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="ambient-dust"></div>
+    <div class="audio-toggle" id="audioToggle">🎵</div>
+
+    <!-- نافذة الرسائل للبلورات -->
+    <div class="msg-overlay" id="msgOverlay">
+        <div class="msg-card">
+            <div class="msg-text" id="msgContent"></div>
+            <button class="btn-ack" onclick="closeMessage()">بحبك سكرتيييييي 🤍</button>
+        </div>
+    </div>
+
+    <!-- شاشة الخاتمة الأسطورية -->
+    <div class="climax-screen" id="climaxScreen">
+        <div class="climax-text" style="font-size: 2.6rem; line-height: 1.6;">
+            استسلمت لكِ ذيك المرة وقلت لكِ فزتي.. 😉<br>
+            <span style="color: var(--glow-pink); text-shadow: 0 0 20px var(--glow-pink);">بس هالمرة أنا اللي فزت،</span><br>
+             وبظل أحبكِ أكثر منك يلا روحي اعترفي! 👑❤️
+        </div>
+        <p style="font-family:'Cairo'; font-size:1.4rem; color:#fff; margin-top:30px; font-weight:900; opacity:0.9; text-shadow: 0 0 15px #000;">✨ ليوثتكِ الصغنون  ✨</p>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="container">
+        
+        <!-- ================= STAGE 1: REALISTIC BIOMETRIC BREATHING (IMAGE BASED) ================= -->
+        <div class="stage active" id="stage1">
+            <h1 class="poetic-title">يااااا سكرتي يا احلى روح دخلت حياتي.. 🌸</h1>
+            <p class="soul-text">في نفس هاذا اليوم قبل فتره من الزمن ولدتي فيه احلى روح واجملها, واليوم عملت ليكي احلى هديه لاحلى سكره في حياتي.<br>ضعي إصبعك على البصمة ولا تفلتيه حتى النهاياااااااا.</p>
+            
+            <div class="breathe-wrapper" id="holdBtn">
+                <!-- خط الليزر الماسح المتنقل -->
+                <div class="scan-laser"></div>
+                <div class="fp-glow"></div>
+                <svg class="fp-ring" viewBox="0 0 160 160">
+                    <circle class="ring-bg" cx="80" cy="80" r="70"></circle>
+                    <circle class="ring-fill" id="pRing" cx="80" cy="80" r="70"></circle>
+                </svg>
+                
+                <!-- صورة البصمة بدلاً من كود الـ SVG المعقد -->
+                <img src="fingerprint.png" alt="Fingerprint" class="fp-img">
+            </div>
+            
+            <div class="breathe-text" id="holdText">اضغطي هنا وتأملي..</div>
+        </div>
+
+        <!-- ================= STAGE 2: STAR CATCHER ================= -->
+        <div class="stage" id="stage2">
+            <h1 class="poetic-title">أشياء أحبها فيكِ ✨</h1>
+            <p class="soul-text">انا بحب كل تفصيله فيكي بس هاذي نبذه عنها يلا صيدي خمس نجمات تعرفي شو هي ..</p>
+            
+            <div id="stars-area"></div>
+            
+            <button class="btn-elegant hidden" id="btnS2" onclick="goNext(3)">أكملي الرحلة 🤍</button>
+        </div>
+
+        <!-- ================= STAGE 3: MEMORY CRYSTALS ================= -->
+        <div class="stage" id="stage3">
+            <h1 class="poetic-title">بلروات فيها حكي من قلبي حاولت اخرج مشاعري بقدر الامكان  💎</h1>
+            <p class="soul-text">المسي كل بلورة لتفتحي رسالة مخبأة لكِ..</p>
+            
+            <div class="crystals-grid" id="crystalsBox"></div>
+
+            <button class="btn-elegant hidden" id="btnS3" onclick="goNext(4)">الرسالة الأخيرة 📜</button>
+        </div>
+
+        <!-- ================= STAGE 4: THE GRAND LETTER ================= -->
+        <div class="stage" id="stage4">
+            <h1 class="poetic-title" style="margin-bottom: 20px;">رسالة من ليوتثك..</h1>
+            <div class="letter-wrap" id="finalLetter"></div>
+            <button class="btn-elegant hidden" id="btnS4" onclick="triggerClimax()" style="margin-top: 15px;">االموفاجئه الاخيره يلااااااا ✨</button>
+        </div>
+
+    </div>
+
+    <!-- Script Section -->
+    <script>
+        // --- AUDIO MANAGEMENT ---
+        const bgm = document.getElementById('bgm');
+        const audioBtn = document.getElementById('audioToggle');
+        let isAudioPlaying = false;
+
+        audioBtn.addEventListener('click', () => {
+            if(isAudioPlaying) { bgm.pause(); audioBtn.innerHTML = '🔇'; } 
+            else { bgm.play().catch(e=>{}); audioBtn.innerHTML = '🎵'; }
+            isAudioPlaying = !isAudioPlaying;
+        });
+
+        function safePlayAudio() {
+            if(!isAudioPlaying && bgm) {
+                bgm.volume = 0.5;
+                bgm.play().then(() => { 
+                    isAudioPlaying = true; 
+                    audioBtn.innerHTML = '🎵'; 
+                }).catch(err => console.log("Audio autoplay blocked by browser."));
+            }
+        }
+
+        // --- STAGE TRANSITIONS ---
+        function goNext(nextNum) {
+            const current = document.querySelector('.stage.active');
+            const next = document.getElementById('stage' + nextNum);
+            
+            current.classList.remove('active');
+            current.classList.add('fade-out');
+            
+            setTimeout(() => {
+                current.classList.remove('fade-out');
+                next.classList.add('active');
+                
+                if(nextNum === 2) startStarGame();
+                if(nextNum === 3) renderCrystals();
+                if(nextNum === 4) startFinalLetter();
+            }, 800);
+        }
+
+        // --- STAGE 1: REALISTIC BIOMETRIC BREATHING (MODIFIED FOR IMAGE) ---
+        const holdBtn = document.getElementById('holdBtn');
+        const holdText = document.getElementById('holdText');
+        const pRing = document.getElementById('pRing');
+        let holdInterval;
+        let isHolding = false;
+        let holdTime = 0;
+        const totalTime = 6000; // 6 seconds for the full breath cycle
+
+        function startHold(e) {
+            if (e.type === 'touchstart') e.preventDefault(); 
+            if(isHolding) return;
+            isHolding = true;
+            
+            safePlayAudio(); 
+            holdBtn.classList.add('holding');
+            
+            holdInterval = setInterval(() => {
+                holdTime += 50;
+                
+                let progress = Math.max(0, 440 - (holdTime / totalTime * 440));
+                pRing.style.strokeDashoffset = progress;
+
+                if(holdTime === 100) holdText.innerText = "خذي نفس عمييييق... شهيييييق 🌬️";
+                if(holdTime === 2500) holdText.innerText = "اكتمي النفس ثانية بس... ⏳";
+                if(holdTime === 4000) holdText.innerText = "زفيييييير... ارمي كل شيء 🌸";
+                
+                if(holdTime >= totalTime) {
+                    clearInterval(holdInterval);
+                    isHolding = false; 
+                    holdText.innerText = "حلو طاقه ايجابيه وييييييي! ✨";
+                    holdBtn.style.pointerEvents = 'none'; 
+                    
+                    confetti({ particleCount: 60, spread: 80, origin: { y: 0.6 }, colors: ['#ff477e', '#ffdf00', '#ffffff'] });
+                    setTimeout(() => goNext(2), 1500);
+                }
+            }, 50);
+        }
+
+        function endHold(e) {
+            if(isHolding && holdTime < totalTime) {
+                isHolding = false;
+                clearInterval(holdInterval);
+                holdBtn.classList.remove('holding');
+                
+                holdTime = 0;
+                holdText.innerText = "لا تفلتي، اضغطي مطولاً..";
+                pRing.style.strokeDashoffset = 440;
+            }
+        }
+
+        holdBtn.addEventListener('mousedown', startHold);
+        holdBtn.addEventListener('touchstart', startHold, {passive: false});
+        window.addEventListener('mouseup', endHold);
+        window.addEventListener('touchend', endHold);
+        window.addEventListener('touchcancel', endHold);
+
+        // --- STAGE 2: STAR CATCHER ---
+        const starsArea = document.getElementById('stars-area');
+        let caughtStars = 0;
+        let starLoop;
+        let isGameActive = true;
+
+        const starTexts = [
+            "عصبية بس قلبك أبيض 😂🤍",
+            "أحن وحدة علي 😭 🌸",
+            "شكرا من كووول قلبي على كل حاجه يا اسكرتي 👑",
+            "احلى حدا بيفهمني من كلمه 😘",
+            "اختي العظيمه بحبك والله 💪"
+        ];
+
+        function startStarGame() {
+            starLoop = setInterval(spawnStar, 1000);
+        }
+
+        function spawnStar() {
+            if(caughtStars >= 5 || !isGameActive) return;
+            
+            const star = document.createElement('div');
+            star.className = 'fly-star';
+            star.style.left = Math.random() * 70 + 10 + '%';
+            star.style.animationDuration = (Math.random() * 1.5 + 2.5) + 's';
+            star.innerHTML = '✨';
+
+            const catchIt = (e) => {
+                if (e.type === 'touchstart') e.preventDefault();
+                if(!isGameActive) return;
+                star.remove();
+                
+                const toast = document.createElement('div');
+                toast.className = 'star-toast';
+                toast.innerText = starTexts[caughtStars];
+                starsArea.appendChild(toast);
+                
+                setTimeout(() => toast.remove(), 2000);
+
+                let clientX = e.clientX || (e.touches && e.touches[0].clientX) || window.innerWidth/2;
+                let clientY = e.clientY || (e.touches && e.touches[0].clientY) || window.innerHeight/2;
+                confetti({ particleCount: 20, spread: 50, origin: {x: clientX/window.innerWidth, y: clientY/window.innerHeight}, colors:['#ffdf00', '#ff477e']});
+
+                caughtStars++;
+
+                if(caughtStars >= 5) {
+                    isGameActive = false;
+                    clearInterval(starLoop);
+                    setTimeout(() => document.getElementById('btnS2').classList.remove('hidden'), 1000);
+                }
+            };
+
+            star.addEventListener('mousedown', catchIt);
+            star.addEventListener('touchstart', catchIt, {passive: false});
+            starsArea.appendChild(star);
+            setTimeout(() => { if(star.parentNode) star.remove(); }, 4000);
+        }
+
+        // --- STAGE 3: MEMORY CRYSTALS ---
+        const deepMessages = [
+            "انا ممتن لكل كل طيبه حكيتيها لي واهتمام كنت محضوضه انا فيه وكل كل شيء انتي بنوته مافي احلى منها في حياتي .",
+            "إنتي لستِ فقط الأخت الكبيرة، إنتي المأوى الحنون الذي ألجأ إليه كلما احتجتُ كتفاً يسندني وقلباً يفهمني دون أن يتكلم.. 😂🤍",
+            "اللهم املأ قلب سكرتي بالراحة التي لا يعقبها شقاء، ويسّر لها كل عسير، وافتح لها أبواب توفيقك في كل خطوة تخطيها، واجعل السعادة مستقرة في عينيها ولا تريني فيها بأساً يبكيني..",
+            "أحلى صدفة إننا اجتمعنا بشهر 7 المجنون هههه.. أنا أفتح الشهر وإنتي مسك الختام اللي يزين كل أيامي.",
+            "فخور جداً بكل خطوة نجاح تخطينها. إنتي بطلة ومكافحة، وتذكري دايماً إني في ظهرك مهما صار.",
+            "اللهم أنزل سكينتك وطمأنينتك على قلب أختي، وأبعد عنها وعثاء الدنيا وضيقها. يا رب اجعل صدرها مشروحاً بالفرح، وخالياً من الهم والحزن، واجعل ابتسامتها لا تختفي يارب. ✨"
+        ];
+        
+        const msgOverlay = document.getElementById('msgOverlay');
+        const msgContent = document.getElementById('msgContent');
+        let currentCrystal = null;
+        let crystalsOpened = 0;
+
+        function renderCrystals() {
+            const container = document.getElementById('crystalsBox');
+            container.innerHTML = '';
+            crystalsOpened = 0;
+
+            deepMessages.forEach((text, i) => {
+                const node = document.createElement('div');
+                node.className = 'crystal';
+                node.innerHTML = `<div class="crystal-shape"></div>`;
+                
+                node.onclick = () => {
+                    if(!node.classList.contains('lit')) {
+                        currentCrystal = node;
+                        msgContent.innerText = text;
+                        msgOverlay.classList.add('show');
+                    }
+                };
+                container.appendChild(node);
+            });
+        }
+
+        function closeMessage() {
+            msgOverlay.classList.remove('show');
+            if(currentCrystal) {
+                currentCrystal.classList.add('lit');
+                crystalsOpened++;
+                currentCrystal = null;
+                confetti({ particleCount: 15, spread: 30, origin: { y: 0.6 }, colors: ['#ffdf00'] });
+
+                if(crystalsOpened === 6) {
+                    setTimeout(() => document.getElementById('btnS3').classList.remove('hidden'), 800);
+                }
+            }
+        }
+
+       // --- STAGE 4: THE GRAND LETTER & CLIMAX ---
+        const letterText = `إلى أحلى بنوتة وأخت وصديقة عزيزة.. وسكرتي الجميلة في حياتي 🌸✨
+
+في هذا اليوم المميز جداً.. والجميل بزيادة لأنه يوم ميلاد سكرتي العزيزة 🎂💖، أتمنى لكِ سنة جديدة مليانة فرح وحياة أحلى وأجمل تليق بقلبك الطاهر. يا رب يفرجها عليكِ ويفتح لكِ أبواب رزقه ورحمته من أوسع أبوابه، وما تشوفي بعد اليوم أي كسر خاطر أو زعل أبداً يا رب. 🤲🌸
+
+وأتمنى من كل قلبي إنه ما في شيء بالدنيا يفرقنا عن بعض 🫂، ومهما صار وزعلتكِ بيوم.. أتمنى منكِ ما تنسي أبداً إني أخوكِ وسندكِ، وتسامحيني لأنكِ بقلبي وبكون أكيد ما أقصد.. أنا أحبكِ ومستحيل أرضى بزعلكِ، فوق هذا كله أنا "ليوثتك" الوحيد والفريد! 😉✨
+
+المهم.. أنا أشكركِ من كل أعماق قلبي على كل شيء قدمتيه لي.. على الحب، والاهتمام، وأحلى "ليوثي" أسمعها منكِ كل يوم. 🥺❤️ كوني الشخص اللي تحبيه وتقدريه، وكوني "قطعتكِ النادرة".. هذا شعور مستحيل ألاقي كلام بالدنيا يوصف فرحتي وسعادتي فيه! 💎🌟
+
+أنا أصلاً لما أكون سبب في سعادة شخص عادي مالي صلة فيه أكون طاير من الفرح.. فما بالك بشخص لو بيدي أفديه بروحي وبحياتي كلها؟! ❤️ هنا فرحتي تتحول لجنون! بالمختصر.. إنتي الشخص اللي أتمنى ما يفارقني ويبقى منور حياتي للأبد، وإذا تحسن الوضع إن شاء الله بجيبكِ تعيشي معاي كمان.. فين أصلاً بلاقي أخت زيكِ ودنياي بدونكِ ما تسوى؟ ما في.. مستحيل ألاقي! 🥺🏡🎈
+
+المهم في يوم ميلادكِ الجميل.. أدعو الله أن يجبر بخاطركِ بقدر ما تجبرين بخواطرنا، وأن يفرح قلبكِ بقدر ما تسعديننا. 🌸✨
+
+كوني قوية.. كوني سعيدة دايماً، وتأكدي وعينكِ تنام مرتاحة أن لديكِ أخاً مستعداً لأن يحارب الدنيا كلها لأجلكِ. ⚔️💪🛡️
+
+أخوكِ وسندكِ، وصغنونكِ الصغير:
+ليوثه.. 🤍`;
+
+        function startFinalLetter() {
+            const container = document.getElementById('finalLetter');
+            container.innerHTML = '';
+            let i = 0;
+            
+            function typeChar() {
+                if(i < letterText.length) {
+                    container.innerHTML += letterText.charAt(i) === '\n' ? '<br>' : letterText.charAt(i);
+                    i++;
+                    container.scrollTop = container.scrollHeight;
+                    
+                    let speed = 40; 
+                    if(letterText.charAt(i-1) === '.' || letterText.charAt(i-1) === '\n') speed = 400; 
+                    
+                    setTimeout(typeChar, speed);
+                } else {
+                    setTimeout(() => document.getElementById('btnS4').classList.remove('hidden'), 1500);
+                }
+            }
+            
+            setTimeout(typeChar, 1000);
+        }
+
+        function triggerClimax() {
+            const climaxScreen = document.getElementById('climaxScreen');
+            climaxScreen.classList.add('show');
+            
+            const duration = 15 * 1000;
+            const end = Date.now() + duration;
+            const defaults = { startVelocity: 45, spread: 360, ticks: 80, zIndex: 9999, colors: ['#ffdf00', '#ff477e', '#ffffff'] };
+            
+            const fireworkInterval = setInterval(function() {
+                if (Date.now() > end) {
+                    clearInterval(fireworkInterval);
+                    return;
+                }
+                confetti(Object.assign({}, defaults, { particleCount: 80, origin: { x: Math.random()*(0.3-0.1)+0.1, y: Math.random()-0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount: 80, origin: { x: Math.random()*(0.9-0.7)+0.7, y: Math.random()-0.2 } }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>
